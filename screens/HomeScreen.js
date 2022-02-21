@@ -1,19 +1,21 @@
 import React, {useEffect, useState} from 'react'
-import { View, Text, SafeAreaView, Platform, StatusBar, StyleSheet, FlatList, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, Platform, StatusBar, StyleSheet, FlatList, ScrollView, Button } from 'react-native'
 import Header from '../components/Header'
 import PortsList from '../components/PortsList';
 
 const HomeScreen = () => {
     
     const [data, setData] = useState([]);
+    const [city, setCity] = useState('tijuana');
     
     useEffect(() => {
+        console.log(city);
         getPorts()
-      }, [])
+    }, [city])
 
       
     const getPorts = () => {
-        return fetch('https://tiempoengaritas.herokuapp.com/api/tijuana/')
+        return fetch('https://tiempoengaritas.herokuapp.com/api/' + city)
         .then((response) => response.json())
         .then((json) => {
             setData(json)
@@ -25,7 +27,12 @@ const HomeScreen = () => {
 
     return(
         <SafeAreaView style={styles.container}>
-            <Header />
+            <Header curretCity={city} setCity={setCity}/>
+            
+            <Button 
+                onPress={() => setCity('tecate') }
+                title='Update'
+            />
             
             <PortsList ports={data}/>
 
