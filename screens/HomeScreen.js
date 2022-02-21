@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import { View, Text, SafeAreaView, Platform, StatusBar, StyleSheet, FlatList, ScrollView, Button } from 'react-native'
+import { SafeAreaView, Platform, StatusBar, StyleSheet, Button } from 'react-native'
 import Header from '../components/Header'
 import PortsList from '../components/PortsList';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     
     const [data, setData] = useState([]);
     const [city, setCity] = useState('tijuana');
@@ -25,19 +25,18 @@ const HomeScreen = () => {
         })
     }
 
-    return(
-        <SafeAreaView style={styles.container}>
-            <Header curretCity={city} setCity={setCity}/>
-            
-            <Button 
-                onPress={() => setCity('tecate') }
-                title='Update'
-            />
-            
-            <PortsList ports={data}/>
+    return (
+      <SafeAreaView style={styles.container}>
+        <Header curretCity={city} setCity={setCity} />
 
-        </SafeAreaView>
-    )
+        <Button
+          title="Go to Welcome"
+          onPress={() => navigation.navigate("Welcome")}
+        />
+
+        <PortsList ports={data} />
+      </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({

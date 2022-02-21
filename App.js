@@ -1,9 +1,23 @@
-import HomeScreen from './screens/HomeScreen'
-import { Text, View } from 'react-native'
+// In App.js in a new project
 
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import HomeScreen from "./screens/HomeScreen";
+import WelcomeScreen from "./screens/WelcomeScreen";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <HomeScreen/>
-  )
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      </Stack.Navigator>
+      {/* <HomeScreen /> */}
+    </NavigationContainer>
+  );
 }
+
+export default App;
