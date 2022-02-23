@@ -9,7 +9,6 @@ const HomeScreen = ({navigation}) => {
     const [city, setCity] = useState('tijuana');
     
     useEffect(() => {
-        console.log(city);
         getPorts()
     }, [city])
 
