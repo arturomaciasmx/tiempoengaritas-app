@@ -25,7 +25,6 @@ const CitiesList = ({setCity, toggleOverlay}) => {
               <TouchableOpacity 
                 key={index}
                 onPress={() => {
-                  console.log(ciudad);
                   setCity(ciudad.toLowerCase())
                   toggleOverlay()
                 }}>
