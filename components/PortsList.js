@@ -22,10 +22,12 @@ const PortsList = ({ports}) => {
         }
 
         return <View style={styles.lane}>
-                    <Image 
-                        style={{ width: 50, height: 40 }}
-                        source={ image }/>
-                    <Text>{props.name}</Text>
+                    <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                        <Image 
+                            style={{ width: 50, height: 40, marginRight: 10 }}
+                            source={ image }/>
+                        <Text>{props.name}</Text>
+                    </View>
                     <Text>{props.delay}</Text>
                 </View>
     }
@@ -59,46 +61,46 @@ const PortsList = ({ports}) => {
     }  
 
     return (
-            <ScrollView style={{ marginBottom: 50 }}>
-                {ports.map((port, index) => (
-                    <View key={index}>
-                        <Text style={{ fontSize: 20 }}>{port.name}</Text>
+      <ScrollView style={{ marginBottom: 50 }}>
+        {ports.map((port, index) => (
+          <View key={index}>
+            <Text style={{ fontSize: 20, marginBottom: 10 }}>{port.crossing_name}</Text>
 
-                        {/* Pedestrian standard lanes */}
-                        <Lanes 
-                            status={port.pedestrian_lanes.standard_lanes.status}
-                            name={'Pedestrian ' + port.crossing_name} 
-                            delay={delayTime(port.pedestrian_lanes.standard_lanes)}
-                            type='peatonal' />
+            {/* Pedestrian standard lanes */}
+            <Lanes
+              status={port.pedestrian_lanes.standard_lanes.status}
+              name={"Peatonal"}
+              delay={delayTime(port.pedestrian_lanes.standard_lanes)}
+              type="peatonal"
+            />
 
+            {/* Pedestrian radylane lanes */}
+            <Lanes
+              status={port.pedestrian_lanes.ready_lanes.status}
+              name={"Peatonal - Ready Lane "}
+              delay={delayTime(port.pedestrian_lanes.ready_lanes)}
+              type="peatonal"
+            />
 
-                        {/* Pedestrian radylane lanes */}
-                        <Lanes 
-                            status={port.pedestrian_lanes.ready_lanes.status}
-                            name={'Pedestrian - RD ' + port.crossing_name} 
-                            delay={delayTime(port.pedestrian_lanes.ready_lanes)}
-                            type='peatonal' />
+            {/* Vehicle standard lanes */}
+            <Lanes
+              status={port.vehicle_lanes.standard_lanes.status}
+              name={"Vehicular"}
+              delay={delayTime(port.vehicle_lanes.standard_lanes)}
+              type="vehicular"
+            />
 
-
-                        {/* Vehicle standard lanes */}
-                        <Lanes 
-                            status={port.vehicle_lanes.standard_lanes.status}
-                            name={'Vehicle ' + port.crossing_name} 
-                            delay={delayTime(port.vehicle_lanes.standard_lanes)}
-                            type='vehicular' />
-
-                        
-                        {/* Vehicle readylane lanes */}
-                        <Lanes 
-                            status={port.vehicle_lanes.ready_lanes.status}
-                            name={'Vehicle - RD ' + port.crossing_name} 
-                            delay={delayTime(port.vehicle_lanes.ready_lanes)}
-                            type='vehicular' />
-
-                    </View>
-                ))}
-            </ScrollView>
-    )
+            {/* Vehicle readylane lanes */}
+            <Lanes
+              status={port.vehicle_lanes.ready_lanes.status}
+              name={"Vehicular - Ready Lane"}
+              delay={delayTime(port.vehicle_lanes.ready_lanes)}
+              type="vehicular"
+            />
+          </View>
+        ))}
+      </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({

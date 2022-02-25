@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import { SafeAreaView, Platform, StatusBar, StyleSheet, Button } from 'react-native'
+import { Platform, StatusBar, StyleSheet, Button, ScrollView } from 'react-native'
 import Header from '../components/Header'
 import PortsList from '../components/PortsList';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({navigation}) => {
     
@@ -9,10 +10,23 @@ const HomeScreen = ({navigation}) => {
     const [city, setCity] = useState('tijuana');
     
     useEffect(() => {
+        getCity()
         getPorts()
     }, [city])
 
-      
+    const getCity = async () => {
+      try {
+        const value = await AsyncStorage.getItem("@city")
+        if (value !== null) {
+          // value previously stored
+          setCity(value)
+        }
+      } catch (e) {
+        // error reading value
+        console.log(e);
+      }
+    };
+
     const getPorts = () => {
         return fetch('https://tiempoengaritas.herokuapp.com/api/' + city)
         .then((response) => response.json())
@@ -25,16 +39,16 @@ const HomeScreen = ({navigation}) => {
     }
 
     return (
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         <Header curretCity={city} setCity={setCity} />
 
         <Button
           title="Go to Welcome"
-          onPress={() => navigation.navigate("Welcome")}
+          onPress={() => navigation.navigate({city})}
         />
 
         <PortsList ports={data} />
-      </SafeAreaView>
+      </ScrollView>
     );
 }
 
