@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const HomeScreen = ({navigation}) => {
     
     const [data, setData] = useState([]);
-    const [city, setCity] = useState('tijuana');
+    const [city, setCity] = useState(city);
     
     useEffect(() => {
         getCity()
@@ -40,14 +40,9 @@ const HomeScreen = ({navigation}) => {
 
     return (
       <ScrollView style={styles.container}>
-        <Header curretCity={city} setCity={setCity} />
+        <Header currentCity={city} setCity={setCity} navigation={navigation}/>
 
-        <Button
-          title="Go to Welcome"
-          onPress={() => navigation.navigate({city})}
-        />
-
-        <PortsList ports={data} />
+        <PortsList ports={data}/>
       </ScrollView>
     );
 }
