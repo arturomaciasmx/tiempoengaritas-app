@@ -61,7 +61,7 @@ const PortsList = ({ports}) => {
     }  
 
     return (
-      <ScrollView style={{ marginBottom: 50 }}>
+      <ScrollView>
         {ports.map((port, index) => (
           <View key={index}>
             <Text style={{ fontSize: 20, marginBottom: 10 }}>{port.crossing_name}</Text>

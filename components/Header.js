@@ -15,7 +15,7 @@ const Header = ({ currentCity, setCity ,navigation }) => {
       <View style={styles.header}>
         <Icon name="menu" />
         <TouchableOpacity onPress={toggleOverlay}>
-          <Text style={styles.city}>{currentCity}</Text>
+          <Text style={styles.city}>{currentCity.replace(/-/g, " ")}</Text>
         </TouchableOpacity>
       </View>
 
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 10,
+    // paddingVertical: 10,
   },
   city: {
     backgroundColor: "#f7f7f7",

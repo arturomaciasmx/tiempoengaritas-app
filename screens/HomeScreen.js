@@ -1,57 +1,82 @@
 import React, {useEffect, useState} from 'react'
-import { Platform, StatusBar, StyleSheet, Button, ScrollView } from 'react-native'
+import { StyleSheet, Text, ScrollView, View } from 'react-native'
 import Header from '../components/Header'
 import PortsList from '../components/PortsList';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({navigation}) => {
     
-    const [data, setData] = useState([]);
-    const [city, setCity] = useState(city);
-    
+    const [data, setPortsList] = useState([]);
+    const [city, setCity] = useState(null);
+
     useEffect(() => {
-        getCity()
-        getPorts()
+        getSoredCity()
+        if (city != null) {
+          getPorts()
+        }
     }, [city])
 
-    const getCity = async () => {
+    React.useLayoutEffect(() => {
+      navigation.setOptions({
+          headerRight: () => {
+            if (city) {
+              return <Text style={styles.currentCity}>{city.replace(/-/g, " ")}</Text>;
+            }
+          },
+      })
+    }, [navigation, city])
+    
+
+    const getSoredCity = async () => {
       try {
-        const value = await AsyncStorage.getItem("@city")
-        if (value !== null) {
-          // value previously stored
-          setCity(value)
+        const storedCity = await AsyncStorage.getItem("@city")
+        if (storedCity !== null) {
+          setCity(storedCity)
         }
       } catch (e) {
         // error reading value
         console.log(e);
       }
-    };
+    }
 
     const getPorts = () => {
         return fetch('https://tiempoengaritas.herokuapp.com/api/' + city)
         .then((response) => response.json())
         .then((json) => {
-            setData(json)
+            setPortsList(json)
         })
         .catch((error) => {
             console.error(error)
         })
     }
-
-    return (
-      <ScrollView style={styles.container}>
-        <Header currentCity={city} setCity={setCity} navigation={navigation}/>
-
-        <PortsList ports={data}/>
-      </ScrollView>
-    );
+    if (city != null) {
+      return (
+        <View style={styles.container}>
+          {/* <Header currentCity={city} setCity={setCity} navigation={navigation}/> */}
+          <ScrollView>
+              <PortsList ports={data}/>
+          </ScrollView>
+        </View>
+      );
+    } else {
+      return (
+        <Text>Loading...</Text>
+      )
+    }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        marginHorizontal: 20,
-    },
-})
+  container: {
+    flex: 1,
+  },
+  currentCity: {
+    backgroundColor: "#f7f7f7",
+    padding: 10,
+    borderRadius: 20,
+    fontWeight: "bold",
+    color: "#006bf7",
+    textTransform: "capitalize",
+  },
+});
 
 export default HomeScreen

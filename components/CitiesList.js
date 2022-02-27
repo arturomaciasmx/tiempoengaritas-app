@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
@@ -50,7 +50,6 @@ const CitiesList = ({ navigation, setCity, toggleOverlay }) => {
   };
 
   return (
-    <View style={{ alignSelf: "stretch", padding: 15 }}>
       <ScrollView>
         {cities.map((city, index) => (
           <View key={index}>
@@ -63,8 +62,8 @@ const CitiesList = ({ navigation, setCity, toggleOverlay }) => {
           </View>
         ))}
       </ScrollView>
-    </View>
-  );
-};
+  )
+
+}
 
 export default CitiesList
