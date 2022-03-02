@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useCity } from '../context/cityProvider';
 
-const CitiesList = ({ navigation, setCity, toggleOverlay }) => {
+const CitiesList = ({toggleOverlay}) => {
   const [cities, setCities] = useState([]);
+  const {setCity} = useCity()
+
 
   const getCities = () => {
     return fetch("https://tiempoengaritas.herokuapp.com/api/cities")
@@ -35,10 +38,9 @@ const CitiesList = ({ navigation, setCity, toggleOverlay }) => {
         key={index}
         onPress={() => {
           _storeCity(ciudad.slug);
-          navigation.navigate("Home");
           if (setCity) {
+            if (toggleOverlay) toggleOverlay();
             setCity(ciudad.slug);
-            toggleOverlay()
           }
         }}
       >

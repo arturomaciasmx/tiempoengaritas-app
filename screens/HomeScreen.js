@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, ScrollView, View } from "react-native";
-import Header from "../components/Header";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+} from "react-native";
 import PortsList from "../components/PortsList";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import SelectCityButton from "../components/SelectCityButton";
+import { useCity } from "../context/cityProvider";
 
 const HomeScreen = ({ navigation }) => {
-  const [data, setPortsList] = useState([]);
-  const [city, setCity] = useState(null);
+  const [portsList, setPortsList] = useState([]);
+  const {city} = useCity();
 
   useEffect(() => {
-    getSoredCity();
-    if (city != null) {
-      getPorts();
-    }
+    if (city != null) getPorts();
   }, [city]);
 
   React.useLayoutEffect(() => {
@@ -20,24 +22,14 @@ const HomeScreen = ({ navigation }) => {
       headerRight: () => {
         if (city) {
           return (
-            <Text style={styles.currentCity}>{city.replace(/-/g, " ")}</Text>
+            <SelectCityButton
+              navigation={navigation}
+            />
           );
         }
       },
     });
   }, [navigation, city]);
-
-  const getSoredCity = async () => {
-    try {
-      const storedCity = await AsyncStorage.getItem("@city");
-      if (storedCity !== null) {
-        setCity(storedCity);
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
-  };
 
   const getPorts = () => {
     return fetch("https://tiempoengaritas.herokuapp.com/api/" + city)
@@ -49,31 +41,21 @@ const HomeScreen = ({ navigation }) => {
         console.error(error);
       });
   };
-  if (city != null) {
-    return (
-      <View style={styles.container}>
-        {/* <Header currentCity={city} setCity={setCity} navigation={navigation}/> */}
-        <ScrollView>
-          <PortsList ports={data} />
-        </ScrollView>
-      </View>
-    );
-  } else {
-    return <Text>Loading...</Text>;
-  }
+
+  if (city == null) return <Text>Loading...</Text>;
+
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <PortsList ports={portsList} />
+      </ScrollView>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  currentCity: {
-    backgroundColor: "#f7f7f7",
-    padding: 10,
-    borderRadius: 20,
-    fontWeight: "bold",
-    color: "#006bf7",
-    textTransform: "capitalize",
   },
 });
 
