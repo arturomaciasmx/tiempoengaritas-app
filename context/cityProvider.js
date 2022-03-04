@@ -1,40 +1,34 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React,{ createContext, useContext, useState, useEffect } from "react";
+
 
 const CityContext = createContext()
 
 const CityProvider = ({children}) => {
 
     const [city, setCity] = useState(null);
+    const [cities, setCities] = useState([]);
 
-    const getSoredCity = async () => {
-      try {
-        const storedCity = await AsyncStorage.getItem("@city");
-        if (storedCity !== null) {
-          setCity(storedCity);
-        }
-      } catch (e) {
-        // error reading value
-        console.log(e);
-      }
+    const getCities = () => {
+      return fetch("https://tiempoengaritas.herokuapp.com/api/cities")
+        .then((response) => response.json())
+        .then((json) => {
+          setCities(json);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
 
-    // const getSoredCity = () => {
-    //     const storedCity = AsyncStorage.getItem("@city");
-    //     if (storedCity !== null) {
-    //       setCity(storedCity);
-    //     }
-    // };
-
     useEffect(() => {
-        getSoredCity();
-    }, [city]);
+      getCities();
+    }, []);
 
-    return (
-      <CityContext.Provider value={{ city, setCity }}>
+
+    
+
+    return <CityContext.Provider value={{ city, setCity, cities, setCities }}>
         {children}
       </CityContext.Provider>
-    );
 }
 
 export const useCity = () => useContext(CityContext)

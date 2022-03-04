@@ -4,13 +4,16 @@ import {
   Text,
   ScrollView,
   View,
+  // Button,
 } from "react-native";
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
 import { useCity } from "../context/cityProvider";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, cities }) => {
+
   const [portsList, setPortsList] = useState([]);
+
   const {city} = useCity();
 
   useEffect(() => {
@@ -24,6 +27,7 @@ const HomeScreen = ({ navigation }) => {
           return (
             <SelectCityButton
               navigation={navigation}
+              cities={cities}
             />
           );
         }
@@ -44,11 +48,23 @@ const HomeScreen = ({ navigation }) => {
 
   if (city == null) return <Text>Loading...</Text>;
 
+  // const deleteCity = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem("@city");
+  //     console.log('Data removed')
+  //   }
+  //   catch(exception) {
+  //       console.log(exception)
+  //   }
+  // }
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <PortsList ports={portsList} />
       </ScrollView>
+      {/* <Button title="Delete City" onPress={() => deleteCity()}>
+      </Button> */}
     </View>
   );
 };

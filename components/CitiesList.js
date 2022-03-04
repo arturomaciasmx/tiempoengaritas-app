@@ -3,23 +3,9 @@ import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCity } from '../context/cityProvider';
 
-const CitiesList = ({toggleOverlay}) => {
-  const [cities, setCities] = useState([]);
-  const {setCity} = useCity()
+const CitiesList = ({toggleOverlay, cities}) => {
 
-
-  const getCities = () => {
-    return fetch("https://tiempoengaritas.herokuapp.com/api/cities")
-      .then((response) => response.json())
-      .then((json) => {
-        setCities(json);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  _storeCity = async (city) => {
+  const _storeCity = async (city) => {
     try {
       await AsyncStorage.setItem("@city", city);
     } catch (error) {
@@ -28,20 +14,17 @@ const CitiesList = ({toggleOverlay}) => {
     }
   };
 
-  useEffect(() => {
-    getCities();
-  }, []);
-
   const Ciudad = (props) => {
+    
+    const {setCity} = useCity(); 
+    
     return props.city.ciudades.map((ciudad, index) => (
       <TouchableOpacity
         key={index}
         onPress={() => {
-          _storeCity(ciudad.slug);
-          if (setCity) {
+            _storeCity(ciudad.slug);
             if (toggleOverlay) toggleOverlay();
             setCity(ciudad.slug);
-          }
         }}
       >
         <Text style={{ fontSize: 18, marginBottom: 15, color: "#505050" }}>
@@ -50,6 +33,8 @@ const CitiesList = ({toggleOverlay}) => {
       </TouchableOpacity>
     ));
   };
+
+
 
   return (
       <ScrollView>

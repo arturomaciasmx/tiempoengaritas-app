@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import CitiesList from "../components/CitiesList";
 
-const WelcomeScreen = ({ navigation }) => {
+const WelcomeScreen = ({ navigation, cities }) => {
+
   return (
     <ScrollView style={styles.container}>
-      <CitiesList navigation={navigation} />
+      <CitiesList navigation={navigation} cities={cities} />
     </ScrollView>
   );
 };

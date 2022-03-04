@@ -5,7 +5,7 @@ import { useCity } from '../context/cityProvider';
 import CitiesList from './CitiesList';
 
 
-const SelectCityButton = () => {
+const SelectCityButton = ({cities}) => {
 
   const [visible, setVisible] = useState(false);
   const { city } = useCity();
@@ -22,6 +22,7 @@ const SelectCityButton = () => {
       <Overlay isVisible={visible} onBackdropPress={() => toggleOverlay()}>
         <CitiesList
           toggleOverlay={toggleOverlay}
+          cities = {cities}
         />
       </Overlay>
     </View>
