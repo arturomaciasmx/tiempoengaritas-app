@@ -8,7 +8,6 @@ import HomeScreen from "./screens/HomeScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import CityProvider, { useCity } from "./context/cityProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text } from "react-native";
 
 
 const Stack = createNativeStackNavigator();
@@ -42,31 +41,24 @@ const MainNavigation = () => {
       console.log(e);
     }
   }; 
+  console.log(city);
   return  city != null ? <DefaultStack /> : <WelcomeStack />
 }
 
-const WelcomeStack = () => {
-  const {cities} = useCity();
-  
-  if (cities.length > 0) return (
+const WelcomeStack = () => {  
+  return (
       <Stack.Navigator>
-        <Stack.Screen name="Selecciona Tu Ciudad">
-          {props => <WelcomeScreen {...props} cities={cities} />}
-        </Stack.Screen>
+        <Stack.Screen name="Selecciona Tu Ciudad" component={WelcomeScreen}/>
       </Stack.Navigator>    
     )
-  return <Text>Loading...</Text>
 }
 
 const DefaultStack = () => {
-  const {cities} = useCity();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Tiempo En Garitas">
-          {props => <HomeScreen {...props} cities={cities} />}
-        </Stack.Screen>
-    </Stack.Navigator> 
-  )
+      <Stack.Screen name="Tiempo En Garitas" component={HomeScreen} />
+    </Stack.Navigator>
+  );
 }
 
 export default App;

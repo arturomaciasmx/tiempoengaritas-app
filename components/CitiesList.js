@@ -3,7 +3,9 @@ import { View, ScrollView, TouchableOpacity, Text, Dimensions } from 'react-nati
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCity } from '../context/cityProvider';
 
-const CitiesList = ({toggleOverlay, cities}) => {
+const CitiesList = ({toggleOverlay}) => {
+
+  const {cities} = useCity();
 
   const _storeCity = async (city) => {
     try {
