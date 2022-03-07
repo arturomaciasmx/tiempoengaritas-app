@@ -9,7 +9,7 @@ const CityProvider = ({children}) => {
     const [cities, setCities] = useState([]);
 
     const getCities = () => {
-      return fetch("https://tiempoengaritas.herokuapp.com/api/cities")
+      return fetch("http://137.184.228.33/api/cities")
         .then((response) => response.json())
         .then((json) => {
           setCities(json);
@@ -23,8 +23,6 @@ const CityProvider = ({children}) => {
       getCities();
     }, []);
 
-
-    
 
     return <CityContext.Provider value={{ city, setCity, cities, setCities }}>
         {children}

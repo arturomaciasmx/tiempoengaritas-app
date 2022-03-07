@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   StyleSheet,
   Text,
@@ -36,7 +38,7 @@ const HomeScreen = ({ navigation, cities }) => {
   }, [navigation, city]);
 
   const getPorts = () => {
-    return fetch("https://tiempoengaritas.herokuapp.com/api/" + city)
+    return fetch("http://137.184.228.33/api/" + city)
       .then((response) => response.json())
       .then((json) => {
         setPortsList(json);

@@ -51,8 +51,8 @@ const LanesList = ({ port }) => {
   }
 
   return (
-    <View>
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>
+    <View style={{ marginBottom: 15 }}>
+      <Text style={{ fontSize: 25, marginBottom: 10 }}>
         {port.crossing_name}
       </Text>
 

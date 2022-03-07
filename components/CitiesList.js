@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
+import React from 'react'
+import { View, ScrollView, TouchableOpacity, Text, Dimensions } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCity } from '../context/cityProvider';
 
@@ -37,7 +37,10 @@ const CitiesList = ({toggleOverlay, cities}) => {
 
 
   return (
-      <ScrollView>
+    <View style={{ height: Dimensions.get("screen").height - 120, alignItems: 'center' }}>
+      <ScrollView
+        style={{ width: Dimensions.get("screen").width - 90, padding: 10, borderRadius: 20 }}
+      >
         {cities.map((city, index) => (
           <View key={index}>
             <Text
@@ -49,7 +52,8 @@ const CitiesList = ({toggleOverlay, cities}) => {
           </View>
         ))}
       </ScrollView>
-  )
+    </View>
+  );
 
 }
 

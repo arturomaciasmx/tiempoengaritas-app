@@ -1,14 +1,13 @@
 // In App.js in a new project
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import HomeScreen from "./screens/HomeScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import CityProvider, { useCity } from "./context/cityProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as SplashScreen from 'expo-splash-screen';
 import { Text } from "react-native";
 
 
@@ -51,7 +50,7 @@ const WelcomeStack = () => {
   
   if (cities.length > 0) return (
       <Stack.Navigator>
-        <Stack.Screen name="Welcome">
+        <Stack.Screen name="Selecciona Tu Ciudad">
           {props => <WelcomeScreen {...props} cities={cities} />}
         </Stack.Screen>
       </Stack.Navigator>    
@@ -63,7 +62,7 @@ const DefaultStack = () => {
   const {cities} = useCity();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home">
+      <Stack.Screen name="Tiempo En Garitas">
           {props => <HomeScreen {...props} cities={cities} />}
         </Stack.Screen>
     </Stack.Navigator> 

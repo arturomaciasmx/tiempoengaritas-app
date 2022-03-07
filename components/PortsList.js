@@ -1,10 +1,10 @@
 import React from "react";
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
+import { ScrollView, View } from "react-native";
 import LanesList from "./LanesList";
 
 const PortsList = ({ ports }) => {
   return (
-    <ScrollView>
+    <ScrollView style={{ padding: 10 }}>
       {ports.map((port, index) => (
         <View key={index}>
 
