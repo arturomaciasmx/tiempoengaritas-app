@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation, cities }) => {
   }, [navigation, city]);
 
   const getPorts = () => {
-    return fetch("https://tiempoengaritas.herokuapp.com/api/" + city)
+    return fetch("http://137.184.228.33:7000/api/" + city)
       .then((response) => response.json())
       .then((json) => {
         setPortsList(json);
