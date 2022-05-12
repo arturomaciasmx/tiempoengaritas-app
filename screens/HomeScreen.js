@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   StyleSheet,
   Text,
   ScrollView,
   View,
-  // Button,
 } from "react-native";
+
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
 import { useCity } from "../context/cityProvider";
@@ -49,16 +48,6 @@ const HomeScreen = ({ navigation, cities }) => {
   };
 
   if (city == null) return <Text>Loading...</Text>;
-
-  // const deleteCity = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem("@city");
-  //     console.log('Data removed')
-  //   }
-  //   catch(exception) {
-  //       console.log(exception)
-  //   }
-  // }
 
   return (
     <View style={styles.container}>
