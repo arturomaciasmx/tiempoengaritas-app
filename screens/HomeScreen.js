@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Button,
-  ScrollView,
-  View,
-} from "react-native";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { StyleSheet, Button, ScrollView, View, } from "react-native";
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
+// redux
+import { useDispatch, useSelector } from "react-redux";
 import { currentCity } from "../src/redux/citiesSlice";
+import { fetchPorts } from "../src/redux/portsSlice";
 
-const HomeScreen = ({ navigation, cities }) => {
+const HomeScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const _currentCity = useSelector(currentCity);
-  const [portsList, setPortsList] = useState([]);
-  
+  useEffect(() => {
+    if (_currentCity) {
+      dispatch(fetchPorts(_currentCity))
+    }
+  }, [_currentCity])
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -28,21 +30,10 @@ const HomeScreen = ({ navigation, cities }) => {
     });
   }, [navigation, _currentCity]);
 
-  const getPorts = () => {
-    return fetch("http://137.184.228.33:7000/api/" + city)
-      .then((response) => response.json())
-      .then((json) => {
-        setPortsList(json);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView>
-        {/* <PortsList ports={portsList} /> */}
+        <PortsList />
       </ScrollView>
       <Button title="Delete City" onPress={() => deleteCity()}>
       </Button>

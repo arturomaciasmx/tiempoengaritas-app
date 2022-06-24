@@ -40,7 +40,6 @@ const MainNavigation = () => {
       console.log(e);
     }
   }; 
-  // return <WelcomeStack />
   return  getSoredCity() != null ? <DefaultStack /> : <WelcomeStack />
 }
 

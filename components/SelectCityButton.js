@@ -11,7 +11,6 @@ const SelectCityButton = ({cities}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    console.log(_currentCity);
   }, [_currentCity])
 
   const toggleOverlay = () => {
