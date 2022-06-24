@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Overlay } from "@rneui/themed";
-import { useCity } from '../context/cityProvider';
 import CitiesList from './CitiesList';
 
 

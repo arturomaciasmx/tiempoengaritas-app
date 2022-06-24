@@ -9,7 +9,6 @@ import {
 
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
-import { useCity } from "../context/cityProvider";
 
 const HomeScreen = ({ navigation, cities }) => {
 

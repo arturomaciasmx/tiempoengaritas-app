@@ -1,35 +1,33 @@
 // In App.js in a new project
+import React, {useEffect} from "react";
+// Redux
+import {Provider} from "react-redux";
+import store from "./src/redux/store";
 
-import * as React from "react";
-import { useEffect } from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import HomeScreen from "./screens/HomeScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import CityProvider, { useCity } from "./context/cityProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return(
-    <CityProvider>
+    <Provider store={store}>
       <NavigationContainer>
           <MainNavigation />
       </NavigationContainer>
-    </CityProvider>
+    </Provider>
   )
 }
 
-
 const MainNavigation = () => {
-  const {city} = useCity()
-  const {setCity} = useCity()
   
   useEffect(() => {
     getSoredCity()
-  }, [city]);
+  }, []);
   
   const getSoredCity = async () => {
     try {
@@ -41,8 +39,8 @@ const MainNavigation = () => {
       console.log(e);
     }
   }; 
-  console.log(city);
-  return  city != null ? <DefaultStack /> : <WelcomeStack />
+  return <WelcomeStack />
+  // return  city != null ? <DefaultStack /> : <WelcomeStack />
 }
 
 const WelcomeStack = () => {  

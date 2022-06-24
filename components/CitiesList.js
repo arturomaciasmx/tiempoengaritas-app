@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { View, ScrollView, TouchableOpacity, Text, Dimensions } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useCity } from '../context/cityProvider';
+import { cities, fetchCities } from '../src/redux/citiesSlice'
 
 const CitiesList = ({toggleOverlay}) => {
+  const dispatch = useDispatch();
+  const _cities = useSelector(cities)
 
-  const {cities} = useCity();
-
+  useEffect(() => {
+    console.log('fetch');
+    dispatch(fetchCities())
+  }, [])
   const _storeCity = async (city) => {
     try {
       await AsyncStorage.setItem("@city", city);
@@ -16,17 +21,13 @@ const CitiesList = ({toggleOverlay}) => {
     }
   };
 
-  const Ciudad = (props) => {
-    
-    const {setCity} = useCity(); 
-    
+  const Ciudad = (props) => {    
     return props.city.ciudades.map((ciudad, index) => (
       <TouchableOpacity
         key={index}
         onPress={() => {
             _storeCity(ciudad.slug);
             if (toggleOverlay) toggleOverlay();
-            setCity(ciudad.slug);
         }}
       >
         <Text style={{ fontSize: 18, marginBottom: 15, color: "#505050" }}>
@@ -43,7 +44,7 @@ const CitiesList = ({toggleOverlay}) => {
       <ScrollView
         style={{ width: Dimensions.get("screen").width - 90, padding: 10, borderRadius: 20 }}
       >
-        {cities.map((city, index) => (
+        {_cities.map((city, index) => (
           <View key={index}>
             <Text
               style={{ fontSize: 23, fontWeight: "bold", marginBottom: 15 }}

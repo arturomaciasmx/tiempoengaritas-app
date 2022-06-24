@@ -5,6 +5,7 @@ import LanesList from "./LanesList";
 const PortsList = ({ ports }) => {
   return (
     <ScrollView style={{ padding: 10 }}>
+      console.log(ports);
       {ports.map((port, index) => (
         <View key={index}>
 
