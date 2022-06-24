@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Overlay } from "@rneui/themed";
 import CitiesList from './CitiesList';
+import { useSelector } from 'react-redux';
+import { currentCity } from '../src/redux/citiesSlice';
 
 
 const SelectCityButton = ({cities}) => {
-
+  const _currentCity = useSelector(currentCity);
   const [visible, setVisible] = useState(false);
-  const { city } = useCity();
+
+  useEffect(() => {
+    console.log(_currentCity);
+  }, [_currentCity])
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -16,12 +21,11 @@ const SelectCityButton = ({cities}) => {
   return (
     <View>
       <TouchableOpacity onPress={() => toggleOverlay()}>
-        <Text style={styles.currentCity}>{city.replace(/-/g, " ")}</Text>
+        <Text style={styles.currentCity}>{_currentCity.replace(/-/g, " ")}</Text>
       </TouchableOpacity>
       <Overlay isVisible={visible} onBackdropPress={() => toggleOverlay()}>
         <CitiesList
           toggleOverlay={toggleOverlay}
-          cities = {cities}
         />
       </Overlay>
     </View>

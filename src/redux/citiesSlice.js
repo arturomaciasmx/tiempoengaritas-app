@@ -14,8 +14,8 @@ const citiesSlice = createSlice({
   },
   reducers: {
     setCurrentCity(state, action) {
-      console.log(action.payload);
-      // state.currentCity = action.payload
+      console.log(action);
+      state.currentCity = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -25,6 +25,9 @@ const citiesSlice = createSlice({
   }
 })
 
+export const {setCurrentCity} = citiesSlice.actions
+
 export const cities = (state) =>  state.cities.cities
+export const currentCity = (state) => state.cities.currentCity
 
 export default citiesSlice.reducer

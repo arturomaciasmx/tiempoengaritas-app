@@ -1,39 +1,32 @@
 import React, { useEffect, useState } from "react";
-
 import {
   StyleSheet,
-  Text,
+  Button,
   ScrollView,
   View,
 } from "react-native";
-
+import { useSelector } from "react-redux";
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
+import { currentCity } from "../src/redux/citiesSlice";
 
 const HomeScreen = ({ navigation, cities }) => {
-
+  const _currentCity = useSelector(currentCity);
   const [portsList, setPortsList] = useState([]);
-
-  const {city} = useCity();
-
-  useEffect(() => {
-    if (city != null) getPorts();
-  }, [city]);
-
+  
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        if (city) {
+        if (_currentCity) {
           return (
             <SelectCityButton
               navigation={navigation}
-              cities={cities}
             />
           );
         }
       },
     });
-  }, [navigation, city]);
+  }, [navigation, _currentCity]);
 
   const getPorts = () => {
     return fetch("http://137.184.228.33:7000/api/" + city)
@@ -46,15 +39,13 @@ const HomeScreen = ({ navigation, cities }) => {
       });
   };
 
-  if (city == null) return <Text>Loading...</Text>;
-
   return (
     <View style={styles.container}>
       <ScrollView>
-        <PortsList ports={portsList} />
+        {/* <PortsList ports={portsList} /> */}
       </ScrollView>
-      {/* <Button title="Delete City" onPress={() => deleteCity()}>
-      </Button> */}
+      <Button title="Delete City" onPress={() => deleteCity()}>
+      </Button>
     </View>
   );
 };
