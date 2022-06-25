@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Overlay } from "@rneui/themed";
 import CitiesList from './CitiesList';
+import { Overlay } from "@rneui/themed";
 import { useSelector } from 'react-redux';
 import { currentCity } from '../src/redux/citiesSlice';
-
 
 const SelectCityButton = ({cities}) => {
   const _currentCity = useSelector(currentCity);

@@ -10,6 +10,7 @@ import { fetchPorts } from "../src/redux/portsSlice";
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const _currentCity = useSelector(currentCity);
+
   useEffect(() => {
     if (_currentCity) {
       dispatch(fetchPorts(_currentCity))
@@ -20,10 +21,7 @@ const HomeScreen = ({ navigation }) => {
     navigation.setOptions({
       headerRight: () => {
         if (_currentCity) {
-          return (
-            <SelectCityButton
-              navigation={navigation}
-            />
+          return (<SelectCityButton navigation={navigation} />
           );
         }
       },

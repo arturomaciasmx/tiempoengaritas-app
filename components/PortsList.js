@@ -10,9 +10,7 @@ const PortsList = () => {
     <ScrollView style={{ padding: 10 }}>
       {_ports.map((port, index) => (
         <View key={index}>
-
           <LanesList port={port} />
-
         </View>
       ))}
     </ScrollView>
