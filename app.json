@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.arturomaciasmx.tiempoengaritas"
+      "package": "com.arma23.tiempoengaritas"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Button, ScrollView, View, } from "react-native";
+import { StyleSheet, ScrollView, View, } from "react-native";
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
 // redux
@@ -21,8 +21,7 @@ const HomeScreen = ({ navigation }) => {
     navigation.setOptions({
       headerRight: () => {
         if (_currentCity) {
-          return (<SelectCityButton navigation={navigation} />
-          );
+          return (<SelectCityButton navigation={navigation} />);
         }
       },
     });
@@ -33,8 +32,6 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView>
         <PortsList />
       </ScrollView>
-      <Button title="Delete City" onPress={() => deleteCity()}>
-      </Button>
     </View>
   );
 };

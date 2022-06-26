@@ -5,6 +5,6 @@ import portsReducer from "./portsSlice";
 export default configureStore({
   reducer: {
     cities: citiesRecucer,
-    ports: portsReducer
+    ports: portsReducer,
   }
 })
