@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { StyleSheet, ScrollView, View, Button, } from "react-native";
+import { StyleSheet, ScrollView, View, } from "react-native";
 import PortsList from "../components/PortsList";
 import SelectCityButton from "../components/SelectCityButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { currentCity } from "../src/redux/citiesSlice";
@@ -17,16 +16,6 @@ const HomeScreen = ({ navigation }) => {
       dispatch(fetchPorts(_currentCity))
     }
   }, [_currentCity])
-
-  async function deletCity() {
-    try {
-      await AsyncStorage.removeItem("@city");
-      return true;
-    }
-    catch(exception) {
-        return false;
-    }
-  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -43,7 +32,6 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView>
         <PortsList />
       </ScrollView>
-      <Button onPress={() => deletCity()} title={"Delete city"}/>
     </View>
   );
 };
