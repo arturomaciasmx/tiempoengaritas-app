@@ -44,8 +44,7 @@ const MainNavigation = () => {
       console.log(e);
     }
   }; 
-  console.log(_currentCity);
-  
+
   return  !_currentCity ? <WelcomeStack /> : <DefaultDrawer />;
 }
 
@@ -60,17 +59,9 @@ const WelcomeStack = () => {
 const DefaultDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={HomeScreen}/>
+      <Drawer.Screen name="Home" component={HomeScreen} />
     </Drawer.Navigator>
   )
 }
-
-// const DefaultStack = () => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="Tiempo En Garitas" component={HomeScreen} />
-//     </Stack.Navigator>
-//   );
-// }
 
 export default App;
