@@ -12,6 +12,7 @@ import HomeScreen from "./screens/HomeScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { currentCity, setCurrentCity } from "./src/redux/citiesSlice";
+import AboutScreen from "./screens/AboutScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -59,7 +60,8 @@ const WelcomeStack = () => {
 const DefaultDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen} options={{title: "Tiempo en Garitas"}}/>
+      <Drawer.Screen name="About" component={AboutScreen} options={{title: "Acerca de"}}/>
     </Drawer.Navigator>
   )
 }
