@@ -1,22 +1,20 @@
 import 'expo-dev-client';
-import "react-native-gesture-handler";
 import React, {useEffect} from "react";
-// Redux
+import "react-native-gesture-handler";
+// redux
 import store from "./src/redux/store";
 import {Provider, useDispatch, useSelector} from "react-redux";
-// Navigator
+// navigator
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { createDrawerNavigator } from "@react-navigation/drawer"
-
-import HomeScreen from "./screens/HomeScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { currentCity, setCurrentCity } from "./src/redux/citiesSlice";
-import AboutScreen from "./screens/AboutScreen";
-import CitiesScreen from "./screens/CitiesScreen";
+// navigations
+import DefaultDrawer from './navigation/DefaultDrawer';
+import WelcomeStack from './navigation/WelcomeStack';
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+
+
+
 
 const App = () => {
   return(
@@ -38,7 +36,7 @@ const MainNavigation = () => {
   
   const getSoredCity = async () => {
     try {
-        const storedCity = await AsyncStorage.getItem("@city");
+      const storedCity = await AsyncStorage.getItem("@city");
       if (storedCity !== null) {
         dispatch(setCurrentCity(storedCity));
       }
@@ -50,22 +48,7 @@ const MainNavigation = () => {
   return  !_currentCity ? <WelcomeStack /> : <DefaultDrawer />;
 }
 
-const WelcomeStack = () => {  
-  return (
-      <Stack.Navigator>
-        <Stack.Screen name="Selecciona Tu Ciudad" component={CitiesScreen} />
-      </Stack.Navigator>    
-    )
-}
 
-const DefaultDrawer = () => {
-  return (
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={HomeScreen} options={{title: "Tiempo en Garitas"}}/>
-      <Drawer.Screen name="Cities" component={CitiesScreen} options={{title: "Seleccionar ciudad"}}/>
-      <Drawer.Screen name="About" component={AboutScreen} options={{title: "Acerca de"}}/>
-    </Drawer.Navigator>
-  )
-}
+
 
 export default App;

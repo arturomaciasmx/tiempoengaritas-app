@@ -6,15 +6,27 @@ import SelectCityButton from "../components/SelectCityButton";
 import { useDispatch, useSelector } from "react-redux";
 import { currentCity } from "../src/redux/citiesSlice";
 import { fetchPorts } from "../src/redux/portsSlice";
+// analytics
+import analytics from "@react-native-firebase/analytics";
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const _currentCity = useSelector(currentCity);
 
+  async function analyticsEvent() {
+    await analytics().logEvent('basket', {
+      id: 3745092,
+      item: 'mens grey t-shirt',
+      description: ['round neck', 'long sleeved'],
+      size: 'L',
+    })
+  }
+
   useEffect(() => {
     if (_currentCity) {
       dispatch(fetchPorts(_currentCity))
     }
+    analyticsEvent();
   }, [_currentCity])
 
   React.useLayoutEffect(() => {
