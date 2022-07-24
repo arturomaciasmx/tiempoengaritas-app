@@ -1,3 +1,4 @@
+import 'expo-dev-client';
 import "react-native-gesture-handler";
 import React, {useEffect} from "react";
 // Redux
@@ -9,10 +10,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 
 import HomeScreen from "./screens/HomeScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { currentCity, setCurrentCity } from "./src/redux/citiesSlice";
 import AboutScreen from "./screens/AboutScreen";
+import CitiesScreen from "./screens/CitiesScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,7 +53,7 @@ const MainNavigation = () => {
 const WelcomeStack = () => {  
   return (
       <Stack.Navigator>
-        <Stack.Screen name="Selecciona Tu Ciudad" component={WelcomeScreen}/>
+        <Stack.Screen name="Selecciona Tu Ciudad" component={CitiesScreen} />
       </Stack.Navigator>    
     )
 }
@@ -61,6 +62,7 @@ const DefaultDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={HomeScreen} options={{title: "Tiempo en Garitas"}}/>
+      <Drawer.Screen name="Cities" component={CitiesScreen} options={{title: "Seleccionar ciudad"}}/>
       <Drawer.Screen name="About" component={AboutScreen} options={{title: "Acerca de"}}/>
     </Drawer.Navigator>
   )

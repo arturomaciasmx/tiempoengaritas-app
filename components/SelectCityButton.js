@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#006bf7",
     textTransform: "capitalize",
+    marginRight: 10
   },
 });
 
