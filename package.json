@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^1.8.2",
     "@rneui/base": "^4.0.0-rc.5",
     "@rneui/themed": "^4.0.0-rc.5",
+    "@types/react-redux": "^7.1.24",
     "expo": "^45.0.0",
     "expo-constants": "~13.1.1",
     "expo-dev-client": "~1.0.1",
@@ -38,7 +39,8 @@
     "react-redux": "^8.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "typescript": "~4.3.5"
   },
   "private": true
 }
