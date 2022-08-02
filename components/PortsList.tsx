@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { ports } from "../src/redux/portsSlice";
 import LanesList from "./LanesList";
 
-const PortsList = () => {
+const PortsList: React.FC = () => {
   const _ports = useSelector(ports);
   return (
     <ScrollView style={{ padding: 10 }}>

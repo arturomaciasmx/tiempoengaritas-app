@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { StyleSheet, ScrollView, View, } from "react-native";
 import PortsList from "../components/PortsList";
-import SelectCityButton from "../components/SelectCityButton";
+import SelectCityButton from "../components/atoms/SelectCityButton";
 // redux
 import { currentCity } from "../src/redux/citiesSlice";
 import { fetchPorts } from "../src/redux/portsSlice";
 import { useAppDispatch, useAppSelector } from "../src/app/hooks";
+// navigation
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { RootDrawerParamList } from "../navigation/DefaultDrawer";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = ({ navigation }) => {
+export type HomeScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, "Home">
 
+const HomeScreen = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>()
   const dispatch = useAppDispatch();
-  const _currentCity = useAppSelector(currentCity);
+  const _currentCity: string = useAppSelector(currentCity);
 
   useEffect(() => {
     if (_currentCity) {
@@ -22,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
     navigation.setOptions({
       headerRight: () => {
         if (_currentCity) {
-          return (<SelectCityButton navigation={navigation} />);
+          return (<SelectCityButton />);
         }
       },
     });
@@ -30,7 +36,6 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text>{loggedInUser.email} dasd</Text> */}
       <ScrollView>
         <PortsList />
       </ScrollView>

@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigation from './navigation/MainNavigation';
 
-const App = () => {
+const App: React.FC = () => {
   return(
     <Provider store={store}>
       <NavigationContainer>
