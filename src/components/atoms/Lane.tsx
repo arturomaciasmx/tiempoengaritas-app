@@ -1,4 +1,9 @@
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { AppStackProps } from "../../navigation/AppStack";
 
 interface LaneProps {
   status: string;
@@ -13,6 +18,7 @@ const Images = {
 };
 
 const Lane: React.FC<LaneProps> = (props) => {
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackProps>>();
   let image = Images.vehicular;
 
   if (props.status == "N/A") return null;
@@ -20,13 +26,19 @@ const Lane: React.FC<LaneProps> = (props) => {
   props.type == "vehicular" ? (image = Images.vehicular) : (image = Images.peatonal);
 
   return (
-    <View style={styles.lane}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image style={{ width: 50, height: 40, marginRight: 10 }} source={image} />
-        <Text>{props.name}</Text>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("GaritasStackNavigator", { screen: "Port" });
+      }}
+    >
+      <View style={styles.lane}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Image style={{ width: 50, height: 40, marginRight: 10 }} source={image} />
+          <Text>{props.name}</Text>
+        </View>
+        <Text>{props.delay}</Text>
       </View>
-      <Text>{props.delay}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

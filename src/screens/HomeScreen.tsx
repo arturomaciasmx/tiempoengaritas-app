@@ -8,10 +8,13 @@ import { fetchPorts } from "../redux/portsSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 // navigation
 import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { RootDrawerParamList } from "../navigation/DefaultDrawer";
+import { DefaultDrawerProps } from "../navigation/DefaultDrawer";
 import { useNavigation } from "@react-navigation/native";
 
-export type HomeScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, "Home">;
+export type HomeScreenNavigationProp = DrawerNavigationProp<
+  DefaultDrawerProps,
+  "GaritasStack"
+>;
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();

@@ -1,55 +1,55 @@
+import React from "react";
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItem,
   DrawerItemList,
-  DrawerNavigationProp,
 } from "@react-navigation/drawer";
+import { NavigatorScreenParams } from "@react-navigation/native";
 
 // screens
-import HomeScreen from "../screens/HomeScreen";
 import CitiesScreen from "../screens/CitiesScreen";
 import AboutScreen from "../screens/AboutScreen";
-
-import { Image, StyleSheet, Text, View } from "react-native";
-
-import logo from "../assets/logo_tiempo_en_garitas.png";
 import AuthStack, { AuthStackProps } from "./AuthStack";
+import GaritasStack, { GaritasStackProps } from "./GaritasStack";
+import { View } from "react-native";
+import SelectCityButton from "../components/atoms/SelectCityButton";
 
-export type RootDrawerParamList = {
-  Home: undefined;
+export type DefaultDrawerProps = {
+  GaritasStack: NavigatorScreenParams<GaritasStackProps>;
   Cities: undefined;
   About: undefined;
   AuthStackScreen: AuthStackProps;
 };
 
-const Drawer = createDrawerNavigator<RootDrawerParamList>();
+const Drawer = createDrawerNavigator<DefaultDrawerProps>();
 
 const DefaultDrawer = () => {
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
+      initialRouteName="GaritasStack"
       screenOptions={{
         drawerActiveBackgroundColor: "#006bf7",
         drawerActiveTintColor: "#ffffff",
+        headerRight: () => <SelectCityButton />,
       }}
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
       <Drawer.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ drawerLabel: "Inicio" }}
+        name="GaritasStack"
+        component={GaritasStack}
+        options={{ drawerLabel: "Inicio", headerTitle: "Tiempo en Garitas" }}
       ></Drawer.Screen>
       <Drawer.Screen
         name="Cities"
         component={CitiesScreen}
-        options={{ drawerLabel: "Seleccionar Ciudad" }}
+        options={{ drawerLabel: "Seleccionar Ciudad", headerTitle: "Seleccionar Ciudad" }}
       ></Drawer.Screen>
       <Drawer.Screen
         name="About"
         component={AboutScreen}
-        options={{ drawerLabel: "Acerca de" }}
+        options={{ drawerLabel: "Acerca de", headerTitle: "Acerca de" }}
       ></Drawer.Screen>
       <Drawer.Screen
         name="AuthStackScreen"

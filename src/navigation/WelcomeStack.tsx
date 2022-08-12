@@ -1,18 +1,22 @@
 import CitiesScreen from "../screens/CitiesScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-type WelcomeStackParamList = {
+type WelcomeStackProps = {
   SelectCity: undefined;
-}
+};
 
-const Stack = createNativeStackNavigator<WelcomeStackParamList>();
+const Stack = createNativeStackNavigator<WelcomeStackProps>();
 
-const WelcomeStack = () => {  
+const WelcomeStack = () => {
   return (
-      <Stack.Navigator>
-        <Stack.Screen name="SelectCity" component={CitiesScreen} options={{title: "Seleccion tu ciudad"}}/>
-      </Stack.Navigator>    
-    )
-}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SelectCity"
+        component={CitiesScreen}
+        options={{ title: "Seleccion tu ciudad" }}
+      />
+    </Stack.Navigator>
+  );
+};
 
-export default WelcomeStack
+export default WelcomeStack;
