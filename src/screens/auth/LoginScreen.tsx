@@ -3,37 +3,44 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, TextInput, View } from "react-native";
 import LoginButton from "../../components/molecules/LoginButton";
 
-const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const goRegister = () => {
-    navigation.navigate("Register");
-  }
+    navigation.navigate("SignUp");
+  };
 
   return (
     <View style={styles.container}>
       <View>
-
         <Text style={styles.title}>Inicia Sesion</Text>
         <View style={styles.input}>
           <TextInput value={email} onChangeText={setEmail} placeholder="Correo" />
         </View>
         <View style={styles.input}>
-          <TextInput value={password} onChangeText={setPassword} placeholder="Contraseña" />
+          <TextInput
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Contraseña"
+          />
         </View>
         <LoginButton />
 
         <View>
-          <Text style={{textAlign: "center", marginTop: 15}}>No tienes una cuenta?</Text>
+          <Text style={{ textAlign: "center", marginTop: 15 }}>
+            No tienes una cuenta?
+          </Text>
           <TouchableOpacity onPress={goRegister}>
-            <Text style={{textAlign: "center", color: "#006bf7", fontWeight: "800"}}>Registrate</Text>
+            <Text style={{ textAlign: "center", color: "#006bf7", fontWeight: "800" }}>
+              Registrate
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
-   );
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +48,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
@@ -56,7 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 30,
     borderRadius: 10,
-  }
-})
+  },
+});
 
 export default LoginScreen;

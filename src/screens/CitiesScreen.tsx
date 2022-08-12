@@ -1,41 +1,41 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useAppDispatch, useAppSelector } from "../src/app/hooks";
-import { cities, fetchCities } from "../src/redux/citiesSlice";
-import { setCurrentCity } from "../src/redux/citiesSlice";
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { cities, fetchCities } from "../redux/citiesSlice";
+import { setCurrentCity } from "../redux/citiesSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const CitiesScreen = ({navigation}) => { 
-  const dispatch = useAppDispatch()
+const CitiesScreen = ({ navigation }) => {
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchCities())
-  }, [])
+    dispatch(fetchCities());
+  }, []);
 
   const _cities = useAppSelector(cities);
-  return(
+  return (
     <View style={styles.container}>
       <ScrollView>
         {_cities.map((element, index) => (
           <View key={index}>
             <Text style={styles.state}>{element.estado}</Text>
-            <Cities element={element} navigation={navigation}/>
+            <Cities element={element} navigation={navigation} />
           </View>
         ))}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-const Cities = ({element, navigation}) => {
+const Cities = ({ element, navigation }) => {
   const dispatch = useAppDispatch();
-  
+
   async function selectCity(city) {
     try {
       await AsyncStorage.setItem("@city", city.slug);
       dispatch(setCurrentCity(city.slug));
       navigation.navigate("Home");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -43,14 +43,14 @@ const Cities = ({element, navigation}) => {
     <TouchableOpacity key={index} onPress={() => selectCity(city)}>
       <Text style={styles.city}>{city.name}</Text>
     </TouchableOpacity>
-  )
-)}
+  ));
+};
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
     backgroundColor: "white",
-    paddingBottom: 50
+    paddingBottom: 50,
   },
   state: {
     fontSize: 18,
@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 4,
     marginTop: 20,
-    borderRadius: 10
+    borderRadius: 10,
   },
   city: {
     fontSize: 16,
     paddingVertical: 8,
-    paddingHorizontal: 10
-  }
-})
+    paddingHorizontal: 10,
+  },
+});
 
-export default CitiesScreen
+export default CitiesScreen;

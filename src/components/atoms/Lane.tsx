@@ -1,18 +1,18 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
 interface LaneProps {
-    status: string;
-    name: string;
-    type: string;
-    delay: string;
+  status: string;
+  name: string;
+  type: string;
+  delay: string;
 }
 
 const Images = {
-  peatonal: require("../../assets/peatonal.png"),
-  vehicular: require("../../assets/vehicular.png"),
+  peatonal: require("../../../assets/peatonal.png"),
+  vehicular: require("../../../assets/vehicular.png"),
 };
 
-const Lane: React.FC<LaneProps> = ( props ) => {
+const Lane: React.FC<LaneProps> = (props) => {
   let image = Images.vehicular;
 
   if (props.status == "N/A") return null;

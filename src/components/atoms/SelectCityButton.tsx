@@ -2,9 +2,8 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
-import { currentCity } from "../../src/redux/citiesSlice";
+import { currentCity } from "../../redux/citiesSlice";
 import { HomeScreenNavigationProp } from "../../screens/HomeScreen";
-
 
 const SelectCityButton: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
