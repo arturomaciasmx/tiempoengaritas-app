@@ -32,12 +32,12 @@ interface Props {
       };
     };
   };
-};
+}
 
 const delayTime = (lane) => {
   let delay = lane.delay_minutes;
 
-  if (lane.status == "Lane Closed") delay = "Cerrado";
+  if (lane.status == "Lanes Closed") delay = "Cerrado";
 
   if (Number.isInteger(parseInt(delay))) {
     //if is delay is more than 60 min convert min to hours
@@ -63,34 +63,70 @@ const LanesList = ({ port }: Props) => {
 
       {/* Pedestrian standard lanes */}
       <Lane
-        status={port.pedestrian_lanes.standard_lanes.status}
-        name={"Peatonal"}
-        delay={delayTime(port.pedestrian_lanes.standard_lanes)}
-        type="peatonal"
+        port={{
+          number: port.number,
+          name: port.name,
+          crossing_name: port.crossing_name,
+          status: port.status,
+        }}
+        lane={{
+          status: port.pedestrian_lanes.standard_lanes.status,
+          lanes_open: port.pedestrian_lanes.standard_lanes.lanes_open,
+          delay_minutes: delayTime(port.pedestrian_lanes.standard_lanes),
+          type: "peatonal",
+          is_readylane: false,
+        }}
       />
 
       {/* Pedestrian radylane lanes */}
       <Lane
-        status={port.pedestrian_lanes.ready_lanes.status}
-        name={"Peatonal - Ready Lane "}
-        delay={delayTime(port.pedestrian_lanes.ready_lanes)}
-        type="peatonal"
+        port={{
+          number: port.number,
+          name: port.name,
+          crossing_name: port.crossing_name,
+          status: port.status,
+        }}
+        lane={{
+          status: port.pedestrian_lanes.ready_lanes.status,
+          lanes_open: port.pedestrian_lanes.ready_lanes.lanes_open,
+          delay_minutes: delayTime(port.pedestrian_lanes.ready_lanes),
+          type: "peatonal",
+          is_readylane: true,
+        }}
       />
 
       {/* Vehicle standard lanes */}
       <Lane
-        status={port.vehicle_lanes.standard_lanes.status}
-        name={"Vehicular"}
-        delay={delayTime(port.vehicle_lanes.standard_lanes)}
-        type="vehicular"
+        port={{
+          number: port.number,
+          name: port.name,
+          crossing_name: port.crossing_name,
+          status: port.status,
+        }}
+        lane={{
+          status: port.vehicle_lanes.standard_lanes.status,
+          lanes_open: port.vehicle_lanes.standard_lanes.lanes_open,
+          delay_minutes: delayTime(port.vehicle_lanes.standard_lanes),
+          type: "vehicular",
+          is_readylane: false,
+        }}
       />
 
       {/* Vehicle readylane lanes */}
       <Lane
-        status={port.vehicle_lanes.ready_lanes.status}
-        name={"Vehicular - Ready Lane"}
-        delay={delayTime(port.vehicle_lanes.ready_lanes)}
-        type="vehicular"
+        port={{
+          number: port.number,
+          name: port.name,
+          crossing_name: port.crossing_name,
+          status: port.status,
+        }}
+        lane={{
+          status: port.vehicle_lanes.ready_lanes.status,
+          lanes_open: port.vehicle_lanes.ready_lanes.lanes_open,
+          delay_minutes: delayTime(port.vehicle_lanes.ready_lanes),
+          type: "vehicular",
+          is_readylane: true,
+        }}
       />
     </View>
   );

@@ -1,16 +1,25 @@
-import { DrawerNavigationProp } from "@react-navigation/drawer";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AppStackProps } from "../../navigation/AppStack";
 
-interface LaneProps {
-  status: string;
-  name: string;
-  type: string;
-  delay: string;
-}
+export type LaneProps = {
+  port: {
+    number: string;
+    name: string;
+    crossing_name: string;
+    status: string;
+  };
+  lane: {
+    status: string;
+    lanes_open: string;
+    delay_minutes: string;
+    type: string;
+    is_readylane: boolean;
+  };
+};
 
 const Images = {
   peatonal: require("../../../assets/peatonal.png"),
@@ -21,22 +30,40 @@ const Lane: React.FC<LaneProps> = (props) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackProps>>();
   let image = Images.vehicular;
 
-  if (props.status == "N/A") return null;
+  if (props.lane.status == "N/A") return null;
 
-  props.type == "vehicular" ? (image = Images.vehicular) : (image = Images.peatonal);
+  props.lane.type == "vehicular" ? (image = Images.vehicular) : (image = Images.peatonal);
 
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("GaritasStackNavigator", { screen: "Port" });
+        navigation.navigate("GaritasStackNavigator", {
+          screen: "Port",
+          params: {
+            port: {
+              number: props.port.number,
+              name: props.port.name,
+              crossing_name: props.port.crossing_name,
+              status: props.port.status,
+            },
+            lane: {
+              status: props.lane.status,
+              lanes_open: props.lane.lanes_open,
+              delay_minutes: props.lane.delay_minutes,
+              type: props.lane.type,
+              is_readylane: props.lane.is_readylane,
+              image: image,
+            },
+          },
+        });
       }}
     >
       <View style={styles.lane}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Image style={{ width: 50, height: 40, marginRight: 10 }} source={image} />
-          <Text>{props.name}</Text>
+          <Text>{props.lane.is_readylane ? "Ready Lane" : "Standard"}</Text>
         </View>
-        <Text>{props.delay}</Text>
+        <Text>{props.lane.delay_minutes}</Text>
       </View>
     </TouchableOpacity>
   );

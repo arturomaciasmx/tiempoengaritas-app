@@ -4,7 +4,22 @@ import PortScreen from "../screens/PortScreen";
 
 export type GaritasStackProps = {
   Home: undefined;
-  Port: undefined;
+  Port: {
+    port: {
+      number: string;
+      name: string;
+      crossing_name: string;
+      status: string;
+    };
+    lane: {
+      status: string;
+      lanes_open: string;
+      delay_minutes: string;
+      type: string;
+      is_readylane: boolean;
+      image: any | undefined;
+    };
+  };
 };
 
 const Stack = createNativeStackNavigator<GaritasStackProps>();
