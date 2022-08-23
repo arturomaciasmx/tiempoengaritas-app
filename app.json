@@ -11,9 +11,7 @@
       "backgroundColor": "#ffffff"
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/perf",
-      "@react-native-firebase/crashlytics"
+    
     ],
     "updates": {
       "fallbackToCacheTimeout": 0
