@@ -8,7 +8,11 @@ export const store = configureStore({
     cities: citiesRecucer,
     ports: portsReducer,
     auth: authReducer,
-  }
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

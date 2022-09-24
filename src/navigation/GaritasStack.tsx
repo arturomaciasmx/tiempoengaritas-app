@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import PortScreen from "../screens/PortScreen";
+import PostScreen from "../screens/PostScreen";
 
 export type GaritasStackProps = {
   Home: undefined;
@@ -20,6 +21,7 @@ export type GaritasStackProps = {
       image: any | undefined;
     };
   };
+  Post: undefined;
 };
 
 const Stack = createNativeStackNavigator<GaritasStackProps>();
@@ -29,6 +31,7 @@ const GaritasStack = () => {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Port" component={PortScreen} />
+      <Stack.Screen name="Post" component={PostScreen} />
     </Stack.Navigator>
   );
 };

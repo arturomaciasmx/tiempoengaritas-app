@@ -4,9 +4,11 @@ import "react-native-gesture-handler";
 // redux
 import { store } from "./src/redux/store";
 import { Provider } from "react-redux";
+
 // navigator
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigation from "./src/navigation/MainNavigation";
+
 
 const App: React.FC = () => {
   return (

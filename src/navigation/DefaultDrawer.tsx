@@ -15,6 +15,8 @@ import AuthStack, { AuthStackProps } from "./AuthStack";
 import GaritasStack, { GaritasStackProps } from "./GaritasStack";
 import { View } from "react-native";
 import SelectCityButton from "../components/atoms/SelectCityButton";
+import { useAppSelector } from "../app/hooks";
+import { user } from "../redux/authSlice";
 
 export type DefaultDrawerProps = {
   GaritasStack: NavigatorScreenParams<GaritasStackProps>;
@@ -69,13 +71,16 @@ const DefaultDrawer = () => {
 type CustomDrawerProps = DrawerContentComponentProps;
 
 const CustomDrawer = (props: CustomDrawerProps) => {
+  let authButton = "Inicia Sesion"
+  const logged_user = useAppSelector(user);
+  if (logged_user) authButton = logged_user["email"]
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <DrawerItem
-        label={"Inicia Sesion"}
+        label={authButton}
         onPress={() => {
           props.navigation.navigate("AuthStackScreen");
         }}

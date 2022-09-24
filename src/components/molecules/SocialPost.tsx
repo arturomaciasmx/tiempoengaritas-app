@@ -31,8 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   header: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: 10,
   },
   posted_by: {
     flexDirection: "row",
