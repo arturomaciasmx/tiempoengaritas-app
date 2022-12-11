@@ -11,7 +11,7 @@
       "backgroundColor": "#ffffff"
     },
     "plugins": [
-    
+      "@react-native-firebase/app"
     ],
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.arma23.tiempoengaritas"
+      "bundleIdentifier": "com.arma23.tiempoengaritas",
     },
     "android": {
       "versionCode": 3,
@@ -33,6 +33,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "17e3435e-08ff-4296-baa4-bfc27834f4cc"
+      }
     }
   }
 }

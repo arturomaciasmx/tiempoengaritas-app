@@ -5,6 +5,7 @@ import RegisterButton from "../../components/molecules/RegisterButton";
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
 
   const goLogin = () => {
     navigation.navigate("Login");
@@ -19,12 +20,19 @@ const RegisterScreen = ({ navigation }) => {
         </View>
         <View style={styles.input}>
           <TextInput
+            value={displayName}
+            onChangeText={setDisplayName}
+            placeholder="Nombre"
+          />
+        </View>
+        <View style={styles.input}>
+          <TextInput
             value={password}
             onChangeText={setPassword}
             placeholder="Contraseña"
           />
         </View>
-        <RegisterButton email={email} password={password} />
+        <RegisterButton email={email} password={password} displayName={displayName} />
 
         <View>
           <Text style={{ textAlign: "center", marginTop: 15 }}>

@@ -7,15 +7,15 @@ const PortHeader = (props) => {
         <View>
           <Image
             style={{ width: 180, height: 150, resizeMode: "contain" }}
-            source={props.route.params.lane.image}
+            source={props.params.lane.image}
           />
         </View>
         <View>
-          <Text style={styles.title}>{props.route.params.lane.type}</Text>
+          <Text style={styles.title}>{props.params.lane.type}</Text>
           <Text style={styles.sub}>
-            {props.route.params.lane.is_readylane ? "Ready Lane" : "Standard"}
+            {props.params.lane.is_readylane ? "Ready Lane" : "Standard"}
           </Text>
-          <Text style={styles.delay}>{props.route.params.lane.delay_minutes}</Text>
+          <Text style={styles.delay}>{props.params.lane.delay_minutes}</Text>
         </View>
       </View>
     </View>
