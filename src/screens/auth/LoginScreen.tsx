@@ -25,7 +25,9 @@ const LoginScreen = ({ navigation }) => {
             placeholder="Contraseña"
           />
         </View>
-        <LoginButton />
+
+        {/* Button to handle all the login logic */}
+        <LoginButton user={email} password={password} navigation={navigation} />
 
         <View>
           <Text style={{ textAlign: "center", marginTop: 15 }}>

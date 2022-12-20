@@ -1,9 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import PortHeader from "../components/atoms/PortHeader";
 import SocialPost from "../components/molecules/SocialPost";
+import firestore from "@react-native-firebase/firestore";
+import { ScrollView } from "react-native-gesture-handler";
 
 const PortScreen = ({ route, navigation }) => {
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     navigation.setOptions({
       title: route.params.port.crossing_name,
@@ -13,8 +17,30 @@ const PortScreen = ({ route, navigation }) => {
       headerTintColor: "#fff",
     });
   });
+
+  useEffect(() => {
+    let subscribed = true;
+
+    const fetchPosts = async () => {
+      const postsSnapshot = await firestore().collection("posts").get();
+      let documents = [];
+      postsSnapshot.forEach((doc) => {
+        documents.push(doc.data());
+      });
+      if (subscribed) {
+        setPosts(documents);
+      }
+    };
+
+    fetchPosts();
+
+    return () => {
+      subscribed = false;
+    };
+  }, [route]);
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <PortHeader {...route} />
 
       <TouchableOpacity
@@ -67,8 +93,20 @@ const PortScreen = ({ route, navigation }) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <SocialPost />
-      <SocialPost />
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          {posts.map((post) => {
+            return (
+              <SocialPost
+                user={post.user_name}
+                created_at={post.created_at}
+                post={post.body}
+                key={post.user_id + post.created_at.seconds}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
     </View>
   );
 };

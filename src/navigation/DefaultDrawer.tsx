@@ -7,6 +7,7 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { NavigatorScreenParams } from "@react-navigation/native";
+import auth from "@react-native-firebase/auth";
 
 // screens
 import CitiesScreen from "../screens/CitiesScreen";
@@ -71,9 +72,10 @@ const DefaultDrawer = () => {
 type CustomDrawerProps = DrawerContentComponentProps;
 
 const CustomDrawer = (props: CustomDrawerProps) => {
-  let authButton = "Inicia Sesion"
+  let authButton = "Inicia Sesion";
   const logged_user = useAppSelector(user);
-  if (logged_user) authButton = logged_user["email"]
+
+  if (logged_user) authButton = logged_user["email"];
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView>
@@ -85,6 +87,17 @@ const CustomDrawer = (props: CustomDrawerProps) => {
           props.navigation.navigate("AuthStackScreen");
         }}
       />
+
+      {logged_user != null && (
+        <DrawerItem
+          label={"Logout"}
+          onPress={() => {
+            auth()
+              .signOut()
+              .then(() => console.log("User signed out!"));
+          }}
+        />
+      )}
     </View>
   );
 };

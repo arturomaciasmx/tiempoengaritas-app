@@ -1,6 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const SocialPost = () => {
+interface Props {
+  user: string;
+  created_at: string;
+  post: string;
+}
+const SocialPost = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -9,16 +14,12 @@ const SocialPost = () => {
             <Text style={styles.profile_image}>J</Text>
           </View>
           <View>
-            <Text>Posted by Joel Macias</Text>
+            <Text>Posted by {props.user}</Text>
             <Text>2d ago</Text>
           </View>
         </View>
         <View>
-          <Text style={styles.post_body}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, ullam sequi
-            voluptatibus quis veniam minima sunt veritatis quaerat eaque neque culpa nemo
-            nisi incidunt modi! Autem odit doloremque veritatis minima.
-          </Text>
+          <Text style={styles.post_body}>{props.post}</Text>
         </View>
       </View>
     </View>

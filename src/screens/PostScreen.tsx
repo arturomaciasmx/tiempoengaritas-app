@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useState } from "react";
@@ -34,40 +34,13 @@ const PostScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ backgroundColor: "#ffffff", flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: 10,
-          paddingTop: 10,
-        }}
-      >
-        <Text
-          style={{
-            backgroundColor: "#dadada",
-            paddingVertical: 5,
-            paddingHorizontal: 11,
-            borderRadius: 50,
-            alignItems: "center",
-            justifyContent: "center",
-            marginRight: 10,
-          }}
-        >
-          J
-        </Text>
-        <Text>{user.displayName}</Text>
+      <View style={styles.profile}>
+        <Text style={styles.profile_image}>J</Text>
       </View>
 
       <View>
         <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: "transparent",
-            textAlignVertical: "top",
-            padding: 10,
-            height: 500,
-            fontSize: 20,
-          }}
+          style={styles.input_text}
           placeholder={"Escribe tu publicacion..."}
           defaultValue={post}
           numberOfLines={4}
@@ -76,28 +49,47 @@ const PostScreen = ({ route, navigation }) => {
           onChangeText={(text) => setPost(text)}
         ></TextInput>
       </View>
-      <TouchableOpacity
-        onPress={() => sendPost()}
-        style={{
-          backgroundColor: "#006bf7",
-          padding: 20,
-          borderRadius: 30,
-          marginHorizontal: 20,
-        }}
-      >
-        <Text
-          style={{
-            color: "#ffffff",
-            textAlign: "center",
-            fontSize: 15,
-            fontWeight: "bold",
-          }}
-        >
-          Publicar
-        </Text>
+      <TouchableOpacity onPress={() => sendPost()} style={styles.button}>
+        <Text style={styles.button_text}>PUBLICAR</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  profile: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  profile_image: {
+    backgroundColor: "#dadada",
+    paddingVertical: 5,
+    paddingHorizontal: 11,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+  },
+  input_text: {
+    borderWidth: 1,
+    borderColor: "transparent",
+    textAlignVertical: "top",
+    padding: 10,
+    height: 500,
+    fontSize: 20,
+  },
+  button: {
+    backgroundColor: "#006bf7",
+    padding: 20,
+    borderRadius: 30,
+    marginHorizontal: 20,
+  },
+  button_text: {
+    color: "#ffffff",
+    textAlign: "center",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+});
 export default PostScreen;
