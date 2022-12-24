@@ -3,10 +3,28 @@ import { Text, TouchableOpacity, View } from "react-native";
 import PortHeader from "../components/atoms/PortHeader";
 import SocialPost from "../components/molecules/SocialPost";
 import firestore from "@react-native-firebase/firestore";
+import auth from "@react-native-firebase/auth";
 import { ScrollView } from "react-native-gesture-handler";
 
 const PortScreen = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
+  const currentUser = auth().currentUser;
+
+  function handleSocialPostAccess() {
+    if (!currentUser) {
+      navigation.navigate("AuthStackScreen");
+    } else {
+      navigation.navigate("GaritasStackNavigator", {
+        screen: "Post",
+        params: {
+          port: route.params.port.crossing_name,
+          number: route.params.port.number,
+          lane: route.params.lane.type,
+          is_readylane: route.params.lane.is_readylane,
+        },
+      });
+    }
+  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -22,14 +40,28 @@ const PortScreen = ({ route, navigation }) => {
     let subscribed = true;
 
     const fetchPosts = async () => {
-      const postsSnapshot = await firestore().collection("posts").get();
-      let documents = [];
-      postsSnapshot.forEach((doc) => {
-        documents.push(doc.data());
-      });
-      if (subscribed) {
-        setPosts(documents);
-      }
+      console.log("fetch");
+
+      const postsSnapshot = await firestore().collection("posts");
+      postsSnapshot
+        .where("port.number", "==", route.params.port.number)
+        .where("port.lane", "==", route.params.lane.type)
+        .where("port.is_readylane", "==", route.params.lane.is_readylane)
+        .orderBy("created_at", "desc")
+        .onSnapshot(
+          (querySnapshot) => {
+            let documents = [];
+            querySnapshot.forEach((doc) => {
+              documents.push(doc.data());
+            });
+            if (subscribed) {
+              setPosts(documents);
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     };
 
     fetchPosts();
@@ -37,25 +69,13 @@ const PortScreen = ({ route, navigation }) => {
     return () => {
       subscribed = false;
     };
-  }, [route]);
+  }, [navigation]);
 
   return (
     <View style={{ flex: 1 }}>
       <PortHeader {...route} />
 
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("GaritasStackNavigator", {
-            screen: "Post",
-            params: {
-              port: route.params.port.crossing_name,
-              number: route.params.port.number,
-              lane: route.params.lane.type,
-              is_readylane: route.params.lane.is_readylane,
-            },
-          })
-        }
-      >
+      <TouchableOpacity onPress={() => handleSocialPostAccess()}>
         <View
           style={{
             padding: 10,

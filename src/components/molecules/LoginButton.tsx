@@ -8,8 +8,6 @@ interface Props {
 }
 
 const LoginButton = (props: Props) => {
-  console.log(props.navigation);
-
   function login() {
     auth()
       .signInWithEmailAndPassword(props.user, props.password)
