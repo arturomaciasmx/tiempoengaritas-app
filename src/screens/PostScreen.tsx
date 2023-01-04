@@ -36,9 +36,10 @@ const PostScreen = ({ route, navigation }) => {
     <View style={{ backgroundColor: "#ffffff", flex: 1 }}>
       <View style={styles.profile}>
         <Text style={styles.profile_image}>J</Text>
+        <Text style={{ fontSize: 18 }}>{user.displayName}</Text>
       </View>
 
-      <View>
+      <View style={{ flex: 1 }}>
         <TextInput
           style={styles.input_text}
           placeholder={"Escribe tu publicacion..."}
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 30,
     marginHorizontal: 20,
+    marginVertical: 10,
   },
   button_text: {
     color: "#ffffff",

@@ -40,8 +40,6 @@ const PortScreen = ({ route, navigation }) => {
     let subscribed = true;
 
     const fetchPosts = async () => {
-      console.log("fetch");
-
       const postsSnapshot = await firestore().collection("posts");
       postsSnapshot
         .where("port.number", "==", route.params.port.number)
@@ -52,7 +50,7 @@ const PortScreen = ({ route, navigation }) => {
           (querySnapshot) => {
             let documents = [];
             querySnapshot.forEach((doc) => {
-              documents.push(doc.data());
+              documents.push(doc);
             });
             if (subscribed) {
               setPosts(documents);
@@ -118,10 +116,10 @@ const PortScreen = ({ route, navigation }) => {
           {posts.map((post) => {
             return (
               <SocialPost
-                user={post.user_name}
-                created_at={post.created_at}
-                post={post.body}
-                key={post.user_id + post.created_at.seconds}
+                doc={post.id}
+                user={post.data.user_name}
+                created_at={post.data.created_at}
+                post={post.data.body}
               />
             );
           })}

@@ -21,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.arma23.tiempoengaritas",
+      "bundleIdentifier": "com.arma23.tiempoengaritas"
     },
     "android": {
       "versionCode": 3,
