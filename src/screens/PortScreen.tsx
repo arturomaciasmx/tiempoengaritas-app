@@ -117,9 +117,10 @@ const PortScreen = ({ route, navigation }) => {
             return (
               <SocialPost
                 doc={post.id}
-                user={post.data.user_name}
-                created_at={post.data.created_at}
-                post={post.data.body}
+                user={post.data().user_name}
+                created_at={post.data().created_at}
+                post={post.data().body}
+                likes={post.data().likes}
               />
             );
           })}

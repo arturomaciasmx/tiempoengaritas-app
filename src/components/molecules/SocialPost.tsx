@@ -2,15 +2,20 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Divider, Icon } from "@rneui/themed";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
+import { useEffect, useState } from "react";
 
 interface Props {
   doc: string;
   user: string;
   created_at: string;
   post: string;
+  likes: number;
 }
 const SocialPost = (props: Props) => {
   const currentUser = auth().currentUser;
+  const increment = firestore.FieldValue.increment(1);
+  const decrement = firestore.FieldValue.increment(-1);
+  const [liked, setLiked] = useState(false);
 
   function addLike() {
     firestore()
@@ -21,7 +26,7 @@ const SocialPost = (props: Props) => {
         doc_id: props.doc,
       })
       .then(() => {
-        console.log("like");
+        firestore().collection("posts").doc(props.doc).update({ likes: increment });
       });
   }
 
@@ -36,13 +41,27 @@ const SocialPost = (props: Props) => {
           addLike();
         } else {
           documentSnapshot.docs[0].ref.delete();
-          console.log("unlike");
+          firestore().collection("posts").doc(props.doc).update({ likes: decrement });
         }
-      })
-      .catch((e) => {
-        console.log(e);
       });
   }
+
+  useEffect(() => {
+    firestore()
+      .collection("likes")
+      .where("user_id", "==", currentUser.uid)
+      .where("doc_id", "==", props.doc)
+      .get()
+      .then((documentSnapshot) => {
+        if (!documentSnapshot.empty) {
+          setLiked(true);
+        } else {
+          setLiked(false);
+        }
+      });
+  });
+
+  console.log(liked);
 
   return (
     <View style={styles.container}>
@@ -52,8 +71,8 @@ const SocialPost = (props: Props) => {
             <Text style={styles.profile_image}>J</Text>
           </View>
           <View>
-            <Text>Posted by {props.user}</Text>
-            <Text>2d ago</Text>
+            <Text style={styles.user_name}>{props.user}</Text>
+            <Text style={styles.post_date}>2d ago</Text>
           </View>
         </View>
       </View>
@@ -61,13 +80,31 @@ const SocialPost = (props: Props) => {
         <Text style={styles.post_body}>{props.post}</Text>
       </View>
       <View style={styles.likes_comments}>
-        <Text>Likes</Text>
+        <View style={styles.likes_container}>
+          <Icon
+            size={10}
+            reverse={true}
+            reverseColor={"#ffffff"}
+            name={"thumb-up"}
+            color={props.likes > 0 ? "#006bf7" : "#8a8a8a"}
+            type="material"
+          />
+          <Text style={styles.likes_number}>
+            {props.likes > 0 ? String(props.likes) : ""}
+          </Text>
+        </View>
         <Text style={styles.comments}>10 comments</Text>
       </View>
       <Divider />
       <View style={styles.social_buttons}>
         <TouchableOpacity onPress={() => handleLike()}>
-          <Icon name="thumb-up-off-alt" type="material" color="#666" />
+          <View style={styles.likes_container}>
+            <Icon
+              name={liked ? "thumb-up" : "thumb-up-off-alt"}
+              type="material"
+              color={liked ? "#006bf7" : "#666"}
+            />
+          </View>
         </TouchableOpacity>
         <Icon name="comment" type="material" color="#666" />
       </View>
@@ -78,13 +115,20 @@ const SocialPost = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fdfdfd",
-    marginBottom: 15,
+    marginBottom: 8,
     padding: 10,
   },
   header: {},
   posted_by: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  user_name: {
+    fontSize: 18,
+  },
+  post_date: {
+    fontSize: 12,
+    color: "#8a8a8a",
   },
   profile_image_container: {
     alignItems: "flex-start",
@@ -98,6 +142,7 @@ const styles = StyleSheet.create({
   },
   post_body: {
     marginTop: 15,
+    fontSize: 18,
   },
   likes_comments: {
     flexDirection: "row",
@@ -106,13 +151,22 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   comments: {
-    fontSize: 13,
+    fontSize: 15,
     color: "#8a8a8a",
   },
   social_buttons: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 10,
+  },
+  likes_container: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  likes_number: {
+    color: "#8a8a8a",
+    paddingHorizontal: 1,
+    fontSize: 15,
   },
 });
 
