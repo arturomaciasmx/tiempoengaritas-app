@@ -3,6 +3,7 @@ import { Divider, Icon } from "@rneui/themed";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 interface Props {
   doc: string;
@@ -10,8 +11,11 @@ interface Props {
   created_at: string;
   post: string;
   likes: number;
+  openCommentScreen: () => void;
 }
+
 const SocialPost = (props: Props) => {
+  const navigation = useNavigation();
   const currentUser = auth().currentUser;
   const increment = firestore.FieldValue.increment(1);
   const decrement = firestore.FieldValue.increment(-1);
@@ -81,14 +85,17 @@ const SocialPost = (props: Props) => {
       </View>
       <View style={styles.likes_comments}>
         <View style={styles.likes_container}>
-          <Icon
-            size={10}
-            reverse={true}
-            reverseColor={"#ffffff"}
-            name={"thumb-up"}
-            color={props.likes > 0 ? "#006bf7" : "#8a8a8a"}
-            type="material"
-          />
+          {props.likes > 0 ? (
+            <Icon
+              size={9}
+              reverse={true}
+              reverseColor={"#ffffff"}
+              name={"thumb-up"}
+              color={"#338BFF"}
+              type="material"
+            />
+          ) : null}
+
           <Text style={styles.likes_number}>
             {props.likes > 0 ? String(props.likes) : ""}
           </Text>
@@ -106,7 +113,13 @@ const SocialPost = (props: Props) => {
             />
           </View>
         </TouchableOpacity>
-        <Icon name="comment" type="material" color="#666" />
+        <TouchableOpacity
+          onPress={() => {
+            props.openCommentScreen();
+          }}
+        >
+          <Icon name="comment" type="material" color="#666" />
+        </TouchableOpacity>
       </View>
     </View>
   );

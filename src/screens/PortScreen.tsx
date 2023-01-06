@@ -69,6 +69,10 @@ const PortScreen = ({ route, navigation }) => {
     };
   }, [navigation]);
 
+  function openCommentScreen() {
+    navigation.navigate("Comment");
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <PortHeader {...route} />
@@ -121,6 +125,7 @@ const PortScreen = ({ route, navigation }) => {
                 created_at={post.data().created_at}
                 post={post.data().body}
                 likes={post.data().likes}
+                openCommentScreen={openCommentScreen}
               />
             );
           })}
