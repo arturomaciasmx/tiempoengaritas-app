@@ -2,12 +2,17 @@ import { Text, View, TextInput, TouchableOpacity, StyleSheet } from "react-nativ
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { GaritasStackProps } from "../navigation/GaritasStack";
 
-const PostScreen = ({ route, navigation }) => {
+type Props = NativeStackScreenProps<GaritasStackProps, "Post">;
+const PostScreen = ({ route, navigation }: Props) => {
   const user = auth().currentUser;
   const [post, setPost] = useState("");
 
   const sendPost = () => {
+    console.log(route.params);
+
     firestore()
       .collection("posts")
       .doc()
@@ -15,12 +20,8 @@ const PostScreen = ({ route, navigation }) => {
         user_id: user.uid,
         user_name: user.displayName,
         body: post,
-        port: {
-          port_name: route.params.port,
-          number: route.params.number,
-          lane: route.params.lane,
-          is_readylane: route.params.is_readylane,
-        },
+        port: route.params.port,
+        lane: route.params.lane,
         created_at: firestore.Timestamp.now(),
       })
       .then(() => {

@@ -5,22 +5,37 @@ import SocialPost from "../components/molecules/SocialPost";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { ScrollView } from "react-native-gesture-handler";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { GaritasStackProps } from "../navigation/GaritasStack";
+import { AppStackProps } from "../navigation/AppStack";
+import { CompositeScreenProps } from "@react-navigation/native";
 
-const PortScreen = ({ route, navigation }) => {
+// type Props = NativeStackScreenProps<AppStackProps, "GaritasStackNavigator">;
+type Props = CompositeScreenProps<
+  NativeStackScreenProps<GaritasStackProps, "Post">,
+  NativeStackScreenProps<AppStackProps>
+>;
+const PortScreen = ({ route, navigation }: Props) => {
   const [posts, setPosts] = useState([]);
   const currentUser = auth().currentUser;
 
   function handleSocialPostAccess() {
     if (!currentUser) {
-      navigation.navigate("AuthStackScreen");
+      navigation.navigate("DefaultDrawerNavigator", {
+        screen: "AuthStackScreen",
+      });
     } else {
       navigation.navigate("GaritasStackNavigator", {
         screen: "Post",
         params: {
-          port: route.params.port.crossing_name,
-          number: route.params.port.number,
-          lane: route.params.lane.type,
-          is_readylane: route.params.lane.is_readylane,
+          lane: {
+            type: route.params.lane.type,
+            is_readylane: route.params.lane.is_readylane,
+          },
+          port: {
+            crossing_name: route.params.port.crossing_name,
+            number: route.params.port.number,
+          },
         },
       });
     }
@@ -43,8 +58,8 @@ const PortScreen = ({ route, navigation }) => {
       const postsSnapshot = await firestore().collection("posts");
       postsSnapshot
         .where("port.number", "==", route.params.port.number)
-        .where("port.lane", "==", route.params.lane.type)
-        .where("port.is_readylane", "==", route.params.lane.is_readylane)
+        .where("lane.type", "==", route.params.lane.type)
+        .where("lane.is_readylane", "==", route.params.lane.is_readylane)
         .orderBy("created_at", "desc")
         .onSnapshot(
           (querySnapshot) => {
@@ -69,8 +84,14 @@ const PortScreen = ({ route, navigation }) => {
     };
   }, [navigation]);
 
-  function openCommentScreen() {
-    navigation.navigate("Comment");
+  function openCommentScreen(post) {
+    navigation.navigate("GaritasStackNavigator", {
+      screen: "Comment",
+      params: {
+        user_name: post.data.user_name,
+        post_id: post.id,
+      },
+    });
   }
 
   return (
@@ -125,7 +146,7 @@ const PortScreen = ({ route, navigation }) => {
                 created_at={post.data().created_at}
                 post={post.data().body}
                 likes={post.data().likes}
-                openCommentScreen={openCommentScreen}
+                openCommentScreen={() => openCommentScreen(post)}
               />
             );
           })}

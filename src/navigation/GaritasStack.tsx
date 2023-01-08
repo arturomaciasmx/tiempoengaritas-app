@@ -22,8 +22,20 @@ export type GaritasStackProps = {
       image: any | undefined;
     };
   };
-  Post: undefined;
-  Comment: undefined;
+  Post: {
+    port: {
+      crossing_name: string;
+      number: string;
+    };
+    lane: {
+      type: string;
+      is_readylane: string;
+    };
+  };
+  Comment: {
+    user_name: string;
+    post_id: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<GaritasStackProps>();
@@ -34,7 +46,9 @@ const GaritasStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Port" component={PortScreen} />
       <Stack.Screen name="Post" component={PostScreen} />
-      <Stack.Screen name="Comment" component={CommentScreen} />
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen name="Comment" component={CommentScreen} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
