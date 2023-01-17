@@ -46,7 +46,7 @@ const GaritasStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Port" component={PortScreen} />
       <Stack.Screen name="Post" component={PostScreen} />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
+      <Stack.Group screenOptions={{ presentation: "modal", headerShadowVisible: false }}>
         <Stack.Screen name="Comment" component={CommentScreen} />
       </Stack.Group>
     </Stack.Navigator>

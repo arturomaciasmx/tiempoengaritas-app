@@ -88,7 +88,7 @@ const PortScreen = ({ route, navigation }: Props) => {
     navigation.navigate("GaritasStackNavigator", {
       screen: "Comment",
       params: {
-        user_name: post.data.user_name,
+        user_name: post.data().user_name,
         post_id: post.id,
       },
     });
@@ -146,6 +146,7 @@ const PortScreen = ({ route, navigation }: Props) => {
                 created_at={post.data().created_at}
                 post={post.data().body}
                 likes={post.data().likes}
+                comments={post.data().comments}
                 openCommentScreen={() => openCommentScreen(post)}
               />
             );

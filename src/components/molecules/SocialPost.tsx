@@ -4,6 +4,7 @@ import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import UserPostInfo from "./UserPostInfo";
 
 interface Props {
   doc: string;
@@ -11,11 +12,11 @@ interface Props {
   created_at: string;
   post: string;
   likes: number;
+  comments: number;
   openCommentScreen: () => void;
 }
 
 const SocialPost = (props: Props) => {
-  const navigation = useNavigation();
   const currentUser = auth().currentUser;
   const increment = firestore.FieldValue.increment(1);
   const decrement = firestore.FieldValue.increment(-1);
@@ -65,24 +66,9 @@ const SocialPost = (props: Props) => {
       });
   });
 
-  console.log(liked);
-
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.posted_by}>
-          <View style={styles.profile_image_container}>
-            <Text style={styles.profile_image}>J</Text>
-          </View>
-          <View>
-            <Text style={styles.user_name}>{props.user}</Text>
-            <Text style={styles.post_date}>2d ago</Text>
-          </View>
-        </View>
-      </View>
-      <View>
-        <Text style={styles.post_body}>{props.post}</Text>
-      </View>
+      <UserPostInfo user={props.user} body={props.post} />
       <View style={styles.likes_comments}>
         <View style={styles.likes_container}>
           {props.likes > 0 ? (
@@ -100,7 +86,7 @@ const SocialPost = (props: Props) => {
             {props.likes > 0 ? String(props.likes) : ""}
           </Text>
         </View>
-        <Text style={styles.comments}>10 comments</Text>
+        <Text style={styles.comments}>{props.comments} comments</Text>
       </View>
       <Divider />
       <View style={styles.social_buttons}>
@@ -130,32 +116,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fdfdfd",
     marginBottom: 8,
     padding: 10,
-  },
-  header: {},
-  posted_by: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  user_name: {
-    fontSize: 18,
-  },
-  post_date: {
-    fontSize: 12,
-    color: "#8a8a8a",
-  },
-  profile_image_container: {
-    alignItems: "flex-start",
-    marginRight: 15,
-  },
-  profile_image: {
-    backgroundColor: "#cdcdca",
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 50,
-  },
-  post_body: {
-    marginTop: 15,
-    fontSize: 18,
   },
   likes_comments: {
     flexDirection: "row",
