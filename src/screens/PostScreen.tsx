@@ -11,8 +11,6 @@ const PostScreen = ({ route, navigation }: Props) => {
   const [post, setPost] = useState("");
 
   const sendPost = () => {
-    console.log(route.params);
-
     firestore()
       .collection("posts")
       .doc()
@@ -25,7 +23,6 @@ const PostScreen = ({ route, navigation }: Props) => {
         created_at: firestore.Timestamp.now(),
       })
       .then(() => {
-        console.log("success");
         navigation.goBack();
       })
       .catch((e) => {

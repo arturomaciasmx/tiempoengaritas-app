@@ -30,7 +30,7 @@ const CommentScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
-        <UserPostInfo user={route.params.user_name} body={post?.body} />
+        <UserPostInfo user={route.params.user_name} />
       </View>
       <CommentInput post_id={route.params.post_id} afterSetComment={afterSetComment} />
     </View>

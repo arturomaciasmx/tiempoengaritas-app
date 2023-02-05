@@ -143,7 +143,7 @@ const PortScreen = ({ route, navigation }: Props) => {
               <SocialPost
                 doc={post.id}
                 user={post.data().user_name}
-                created_at={post.data().created_at}
+                created_at={post.data().created_at.toDate()}
                 post={post.data().body}
                 likes={post.data().likes}
                 comments={post.data().comments}

@@ -3,7 +3,6 @@ import { Divider, Icon } from "@rneui/themed";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import UserPostInfo from "./UserPostInfo";
 
 interface Props {
@@ -68,7 +67,7 @@ const SocialPost = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <UserPostInfo user={props.user} body={props.post} />
+      <UserPostInfo user={props.user} body={props.post} created_at={props.created_at} />
       <View style={styles.likes_comments}>
         <View style={styles.likes_container}>
           {props.likes > 0 ? (

@@ -1,11 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
+import moment from "moment";
+import "moment/locale/es";
 
 interface Props {
   user: string;
-  body: string;
+  body?: string;
+  created_at?: string;
 }
 
-const UserPostInfo = ({ user, body }: Props) => {
+const UserPostInfo = ({ user, body, created_at }: Props) => {
+  const timeago = moment.utc(created_at).local().startOf("seconds").fromNow();
   return (
     <>
       <View style={styles.header}>
@@ -15,7 +19,7 @@ const UserPostInfo = ({ user, body }: Props) => {
           </View>
           <View>
             <Text style={styles.user_name}>{user}</Text>
-            <Text style={styles.post_date}>2d ago</Text>
+            <Text style={styles.post_date}>{timeago}</Text>
           </View>
         </View>
       </View>
