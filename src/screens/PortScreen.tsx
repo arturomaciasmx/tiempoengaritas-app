@@ -6,11 +6,10 @@ import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { ScrollView } from "react-native-gesture-handler";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { GaritasStackProps } from "../navigation/GaritasStack";
+import GaritasStack, { GaritasStackProps } from "../navigation/GaritasStack";
 import { AppStackProps } from "../navigation/AppStack";
 import { CompositeScreenProps } from "@react-navigation/native";
 
-// type Props = NativeStackScreenProps<AppStackProps, "GaritasStackNavigator">;
 type Props = CompositeScreenProps<
   NativeStackScreenProps<GaritasStackProps, "Post">,
   NativeStackScreenProps<AppStackProps>
@@ -94,6 +93,15 @@ const PortScreen = ({ route, navigation }: Props) => {
     });
   }
 
+  function openCommentsListScreen(post) {
+    navigation.navigate("GaritasStackNavigator", {
+      screen: "CommentsList",
+      params: {
+        post_id: post.id,
+      },
+    });
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <PortHeader {...route} />
@@ -148,6 +156,7 @@ const PortScreen = ({ route, navigation }: Props) => {
                 likes={post.data().likes}
                 comments={post.data().comments}
                 openCommentScreen={() => openCommentScreen(post)}
+                openCommentsListScreen={() => openCommentsListScreen(post)}
               />
             );
           })}

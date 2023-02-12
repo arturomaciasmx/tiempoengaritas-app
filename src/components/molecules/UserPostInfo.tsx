@@ -9,7 +9,10 @@ interface Props {
 }
 
 const UserPostInfo = ({ user, body, created_at }: Props) => {
-  const timeago = moment.utc(created_at).local().startOf("seconds").fromNow();
+  let timeago = null;
+  if (created_at) {
+    timeago = moment.utc(created_at).local().startOf("seconds").fromNow();
+  }
   return (
     <>
       <View style={styles.header}>

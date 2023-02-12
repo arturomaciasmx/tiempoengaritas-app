@@ -1,9 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Divider, Icon } from "@rneui/themed";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
-import UserPostInfo from "./UserPostInfo";
 
 interface Props {
   doc: string;
@@ -12,11 +11,11 @@ interface Props {
   post: string;
   likes: number;
   comments: number;
-  openCommentScreen: () => void;
-  openCommentsListScreen: () => void;
+  openCommentScreen?: () => void;
+  openCommentsListScreen?: () => void;
 }
 
-const SocialPost = (props: Props) => {
+const PostInteractions = (props: Props) => {
   const currentUser = auth().currentUser;
   const increment = firestore.FieldValue.increment(1);
   const decrement = firestore.FieldValue.increment(-1);
@@ -44,9 +43,11 @@ const SocialPost = (props: Props) => {
       .then((documentSnapshot) => {
         if (documentSnapshot.empty) {
           addLike();
+          setLiked(true);
         } else {
           documentSnapshot.docs[0].ref.delete();
           firestore().collection("posts").doc(props.doc).update({ likes: decrement });
+          setLiked(false);
         }
       });
   }
@@ -67,8 +68,7 @@ const SocialPost = (props: Props) => {
   });
 
   return (
-    <View style={styles.container}>
-      <UserPostInfo user={props.user} body={props.post} created_at={props.created_at} />
+    <View>
       <View style={styles.likes_comments}>
         <View style={styles.likes_container}>
           {props.likes > 0 ? (
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SocialPost;
+export default PostInteractions;

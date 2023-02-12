@@ -3,6 +3,7 @@ import HomeScreen from "../screens/HomeScreen";
 import PortScreen from "../screens/PortScreen";
 import PostScreen from "../screens/PostScreen";
 import CommentScreen from "../screens/CommentScreen";
+import CommentsListScreen from "../screens/CommentsListScreen";
 
 export type GaritasStackProps = {
   Home: undefined;
@@ -36,6 +37,7 @@ export type GaritasStackProps = {
     user_name: string;
     post_id: string;
   };
+  CommentsList: {};
 };
 
 const Stack = createNativeStackNavigator<GaritasStackProps>();
@@ -48,6 +50,9 @@ const GaritasStack = () => {
       <Stack.Screen name="Post" component={PostScreen} />
       <Stack.Group screenOptions={{ presentation: "modal", headerShadowVisible: false }}>
         <Stack.Screen name="Comment" component={CommentScreen} />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "modal", headerShadowVisible: false }}>
+        <Stack.Screen name="CommentsList" component={CommentsListScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
