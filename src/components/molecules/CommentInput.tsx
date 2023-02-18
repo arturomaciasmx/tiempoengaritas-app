@@ -20,7 +20,9 @@ const CommentInput = (props: Props) => {
       .add({
         post_id: props.post_id,
         user_uid: user.uid,
+        user_name: user.displayName,
         body: comment,
+        created_at: firestore.Timestamp.now(),
       })
       .then(() => {
         firestore()

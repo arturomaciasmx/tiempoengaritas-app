@@ -4,10 +4,15 @@ import firestore from "@react-native-firebase/firestore";
 import UserPostInfo from "../components/molecules/UserPostInfo";
 import PostInteractions from "../components/molecules/PostInteractions";
 import CommentCard from "../components/molecules/CommentCard";
+import CommentInput from "../components/molecules/CommentInput";
 
-const CommentsListScreen = ({ route, navigaion }) => {
+const CommentsListScreen = ({ route, navigation }) => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
+
+  function afterSetComment() {
+    navigation.pop();
+  }
 
   useEffect(() => {
     const getPost = async () => {
@@ -63,9 +68,16 @@ const CommentsListScreen = ({ route, navigaion }) => {
       </View>
       <ScrollView>
         {comments.map((comment) => {
-          return <CommentCard />;
+          return (
+            <CommentCard
+              author={comment.user_name}
+              body={comment.body}
+              created_at={comment.created_at?.toDate()}
+            />
+          );
         })}
       </ScrollView>
+      <CommentInput post_id={route.params.post_id} afterSetComment={afterSetComment} />
     </>
   );
 };
