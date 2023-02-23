@@ -1,38 +1,7 @@
-import React, { View, Text } from "react-native";
+import React from "react";
+import { View, Text } from "react-native";
 import Lane from "./atoms/Lane";
-
-interface Props {
-  port: {
-    number: string;
-    name: string;
-    crossing_name: string;
-    status: string;
-    vehicle_lanes: {
-      standard_lanes: {
-        status: string;
-        lanes_open: string;
-        delay_minutes: string;
-      };
-      ready_lanes: {
-        status: string;
-        lanes_open: string;
-        delay_minutes: string;
-      };
-    };
-    pedestrian_lanes: {
-      standard_lanes: {
-        status: string;
-        lanes_open: string;
-        delay_minutes: string;
-      };
-      ready_lanes: {
-        status: string;
-        lanes_open: string;
-        delay_minutes: string;
-      };
-    };
-  };
-}
+import { Port } from "../app/types";
 
 const delayTime = (lane) => {
   let delay = lane.delay_minutes;
@@ -56,7 +25,7 @@ const delayTime = (lane) => {
   return delay;
 };
 
-const LanesList = ({ port }: Props) => {
+const LanesList: React.FC<Port> = ({ port }) => {
   return (
     <View style={{ marginBottom: 15 }}>
       <Text style={{ fontSize: 25, marginBottom: 10 }}>{port.crossing_name}</Text>

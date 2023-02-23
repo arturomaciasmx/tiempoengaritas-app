@@ -1,7 +1,8 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DefaultDrawer, { DefaultDrawerProps } from "./DefaultDrawer";
-import GaritasStack, { GaritasStackProps } from "./GaritasStack";
+import { DefaultDrawerProps, GaritasStackProps } from "../app/types";
+import DefaultDrawer from "./DefaultDrawer";
+import GaritasStack from "./GaritasStack";
 
 export type AppStackProps = {
   DefaultDrawerNavigator: NavigatorScreenParams<DefaultDrawerProps>;

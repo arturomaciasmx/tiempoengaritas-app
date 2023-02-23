@@ -7,17 +7,20 @@ import { currentCity } from "../redux/citiesSlice";
 import { fetchPorts } from "../redux/portsSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 // navigation
-import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { DefaultDrawerProps } from "../navigation/DefaultDrawer";
+// import { DrawerNavigationProp } from "@react-navigation/drawer";
+// import { DefaultDrawerProps } from "../navigation/DefaultDrawer";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { GaritasStackProps } from "../app/types";
 
-export type HomeScreenNavigationProp = DrawerNavigationProp<
-  DefaultDrawerProps,
-  "GaritasStack"
->;
+// export type HomeScreenNavigationProp = DrawerNavigationProp<
+//   DefaultDrawerProps,
+//   "GaritasStack"
+// >;
 
-const HomeScreen = () => {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+type Props = NativeStackScreenProps<GaritasStackProps, "Home">;
+
+const HomeScreen = ({ route, navigation }: Props) => {
   const dispatch = useAppDispatch();
   const _currentCity: string = useAppSelector(currentCity);
 
@@ -50,6 +53,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
+    paddingHorizontal: 15,
   },
 });
 

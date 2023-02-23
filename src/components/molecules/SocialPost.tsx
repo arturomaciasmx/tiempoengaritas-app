@@ -4,6 +4,7 @@ import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
 import UserPostInfo from "./UserPostInfo";
+import PostInteractions from "./PostInteractions";
 
 interface Props {
   doc: string;
@@ -12,7 +13,6 @@ interface Props {
   post: string;
   likes: number;
   comments: number;
-  openCommentScreen: () => void;
   openCommentsListScreen: () => void;
 }
 
@@ -69,46 +69,15 @@ const SocialPost = (props: Props) => {
   return (
     <View style={styles.container}>
       <UserPostInfo user={props.user} body={props.post} created_at={props.created_at} />
-      <View style={styles.likes_comments}>
-        <View style={styles.likes_container}>
-          {props.likes > 0 ? (
-            <Icon
-              size={9}
-              reverse={true}
-              reverseColor={"#ffffff"}
-              name={"thumb-up"}
-              color={"#338BFF"}
-              type="material"
-            />
-          ) : null}
-
-          <Text style={styles.likes_number}>
-            {props.likes > 0 ? String(props.likes) : ""}
-          </Text>
-        </View>
-        <TouchableOpacity onPress={() => props.openCommentsListScreen()}>
-          <Text style={styles.comments}>{props.comments} comments</Text>
-        </TouchableOpacity>
-      </View>
-      <Divider />
-      <View style={styles.social_buttons}>
-        <TouchableOpacity onPress={() => handleLike()}>
-          <View style={styles.likes_container}>
-            <Icon
-              name={liked ? "thumb-up" : "thumb-up-off-alt"}
-              type="material"
-              color={liked ? "#006bf7" : "#666"}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            props.openCommentScreen();
-          }}
-        >
-          <Icon name="comment" type="material" color="#666" />
-        </TouchableOpacity>
-      </View>
+      <PostInteractions
+        comments={props.comments}
+        created_at={props.created_at}
+        doc={props.doc}
+        likes={props.likes}
+        post={props.post}
+        user={props.user}
+        openCommentsListScreen={props.openCommentsListScreen}
+      />
     </View>
   );
 };

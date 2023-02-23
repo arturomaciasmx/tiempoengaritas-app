@@ -11,7 +11,6 @@ interface Props {
   post: string;
   likes: number;
   comments: number;
-  openCommentScreen?: () => void;
   openCommentsListScreen?: () => void;
 }
 
@@ -103,7 +102,7 @@ const PostInteractions = (props: Props) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            props.openCommentScreen();
+            props.openCommentsListScreen();
           }}
         >
           <Icon name="comment" type="material" color="#666" />

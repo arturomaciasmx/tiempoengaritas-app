@@ -12,19 +12,13 @@ import auth from "@react-native-firebase/auth";
 // screens
 import CitiesScreen from "../screens/CitiesScreen";
 import AboutScreen from "../screens/AboutScreen";
-import AuthStack, { AuthStackProps } from "./AuthStack";
-import GaritasStack, { GaritasStackProps } from "./GaritasStack";
+import AuthStack from "./AuthStack";
+import GaritasStack from "./GaritasStack";
+import { DefaultDrawerProps, GaritasStackProps } from "../app/types";
 import { View } from "react-native";
 import SelectCityButton from "../components/atoms/SelectCityButton";
 import { useAppSelector } from "../app/hooks";
 import { user } from "../redux/authSlice";
-
-export type DefaultDrawerProps = {
-  GaritasStack: NavigatorScreenParams<GaritasStackProps>;
-  Cities: undefined;
-  About: undefined;
-  AuthStackScreen: AuthStackProps;
-};
 
 const Drawer = createDrawerNavigator<DefaultDrawerProps>();
 

@@ -4,41 +4,7 @@ import PortScreen from "../screens/PortScreen";
 import PostScreen from "../screens/PostScreen";
 import CommentScreen from "../screens/CommentScreen";
 import CommentsListScreen from "../screens/CommentsListScreen";
-
-export type GaritasStackProps = {
-  Home: undefined;
-  Port: {
-    port: {
-      number: string;
-      name: string;
-      crossing_name: string;
-      status: string;
-    };
-    lane: {
-      status: string;
-      lanes_open: string;
-      delay_minutes: string;
-      type: string;
-      is_readylane: boolean;
-      image: any | undefined;
-    };
-  };
-  Post: {
-    port: {
-      crossing_name: string;
-      number: string;
-    };
-    lane: {
-      type: string;
-      is_readylane: string;
-    };
-  };
-  Comment: {
-    user_name: string;
-    post_id: string;
-  };
-  CommentsList: {};
-};
+import { GaritasStackProps } from "../app/types";
 
 const Stack = createNativeStackNavigator<GaritasStackProps>();
 

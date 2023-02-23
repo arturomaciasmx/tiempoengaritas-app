@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import PortHeader from "../components/atoms/PortHeader";
 import SocialPost from "../components/molecules/SocialPost";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { ScrollView } from "react-native-gesture-handler";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import GaritasStack, { GaritasStackProps } from "../navigation/GaritasStack";
 import { AppStackProps } from "../navigation/AppStack";
 import { CompositeScreenProps } from "@react-navigation/native";
+import { GaritasStackProps } from "../app/types";
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<GaritasStackProps, "Post">,
@@ -83,80 +83,37 @@ const PortScreen = ({ route, navigation }: Props) => {
     };
   }, [navigation]);
 
-  function openCommentScreen(post) {
-    navigation.navigate("GaritasStackNavigator", {
-      screen: "Comment",
-      params: {
-        user_name: post.data().user_name,
-        post_id: post.id,
-      },
-    });
-  }
-
-  function openCommentsListScreen(post) {
+  function openCommentsListScreen(post_id: string) {
     navigation.navigate("GaritasStackNavigator", {
       screen: "CommentsList",
       params: {
-        post_id: post.id,
+        post_id: post_id,
       },
     });
   }
-
   return (
     <View style={{ flex: 1 }}>
       <PortHeader {...route} />
 
       <TouchableOpacity onPress={() => handleSocialPostAccess()}>
-        <View
-          style={{
-            padding: 10,
-            backgroundColor: "#fff",
-            borderBottomWidth: 1,
-            borderBottomColor: "#dadede",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              backgroundColor: "#dadada",
-              paddingVertical: 5,
-              paddingHorizontal: 11,
-              borderRadius: 50,
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: 5,
-            }}
-          >
-            J
-          </Text>
-          <Text
-            style={{
-              borderWidth: 1,
-              borderColor: "#dadede",
-              paddingVertical: 5,
-              paddingHorizontal: 10,
-              borderRadius: 50,
-              flex: 1,
-            }}
-          >
-            Social post...
-          </Text>
+        <View style={styles.container}>
+          <Text style={styles.profile_image}>J</Text>
+          <Text style={styles.text}>Social post...</Text>
         </View>
       </TouchableOpacity>
       <View style={{ flex: 1 }}>
         <ScrollView>
-          {posts.map((post) => {
+          {posts.map((postDoc) => {
+            const post = postDoc.data();
             return (
               <SocialPost
-                doc={post.id}
-                user={post.data().user_name}
-                created_at={post.data().created_at.toDate()}
-                post={post.data().body}
-                likes={post.data().likes}
-                comments={post.data().comments}
-                openCommentScreen={() => openCommentScreen(post)}
-                openCommentsListScreen={() => openCommentsListScreen(post)}
+                doc={postDoc.id}
+                user={post.user_name}
+                created_at={post.created_at.toDate()}
+                post={post.body}
+                likes={post.likes}
+                comments={post.comments}
+                openCommentsListScreen={() => openCommentsListScreen(postDoc.id)}
               />
             );
           })}
@@ -165,5 +122,33 @@ const PortScreen = ({ route, navigation }: Props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    backgroundColor: "#fff",
+    borderBottomWidth: 1,
+    borderBottomColor: "#dadede",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  profile_image: {
+    backgroundColor: "#dadada",
+    paddingVertical: 5,
+    paddingHorizontal: 11,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 5,
+  },
+  text: {
+    borderWidth: 1,
+    borderColor: "#dadede",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 50,
+    flex: 1,
+  },
+});
 
 export default PortScreen;

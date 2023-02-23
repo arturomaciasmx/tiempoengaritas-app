@@ -1,9 +1,13 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, TextInput, View } from "react-native";
+import { AuthStackProps } from "../../app/types";
 import LoginButton from "../../components/molecules/LoginButton";
 
-const LoginScreen = ({ navigation }) => {
+type Props = NativeStackScreenProps<AuthStackProps, "Login">;
+
+const LoginScreen = ({ navigation, route }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

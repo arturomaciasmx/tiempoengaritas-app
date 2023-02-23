@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import { GaritasStackProps } from "../navigation/GaritasStack";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserPostInfo from "../components/molecules/UserPostInfo";
 import { useEffect, useState } from "react";
 import firestore from "@react-native-firebase/firestore";
 import CommentInput from "../components/molecules/CommentInput";
+import { GaritasStackProps } from "../app/types";
 
 type Props = NativeStackScreenProps<GaritasStackProps, "Comment">;
 

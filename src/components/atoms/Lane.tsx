@@ -4,22 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AppStackProps } from "../../navigation/AppStack";
-
-export type LaneProps = {
-  port: {
-    number: string;
-    name: string;
-    crossing_name: string;
-    status: string;
-  };
-  lane: {
-    status: string;
-    lanes_open: string;
-    delay_minutes: string;
-    type: string;
-    is_readylane: boolean;
-  };
-};
+import { LaneProps } from "../../app/types";
 
 const Images = {
   peatonal: require("../../../assets/peatonal.png"),
@@ -59,8 +44,8 @@ const Lane: React.FC<LaneProps> = (props) => {
       }}
     >
       <View style={styles.lane}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image style={{ width: 50, height: 40, marginRight: 10 }} source={image} />
+        <View style={styles.lane_type}>
+          <Image style={styles.image} source={image} />
           <Text>{props.lane.is_readylane ? "Ready Lane" : "Standard"}</Text>
         </View>
         <Text>{props.lane.delay_minutes}</Text>
@@ -86,6 +71,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
+  },
+  lane_type: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  image: {
+    width: 50,
+    height: 40,
+    marginRight: 10,
   },
 });
 export default Lane;

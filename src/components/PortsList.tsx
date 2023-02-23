@@ -7,7 +7,7 @@ import LanesList from "./LanesList";
 const PortsList: React.FC = () => {
   const _ports = useSelector(ports);
   return (
-    <ScrollView style={{ padding: 10 }}>
+    <ScrollView>
       {_ports.map((port, index) => (
         <View key={index}>
           <LanesList port={port} />
