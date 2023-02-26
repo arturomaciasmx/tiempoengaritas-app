@@ -9,6 +9,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackProps } from "../navigation/AppStack";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { GaritasStackProps } from "../app/types";
+import { Icon } from "@rneui/base";
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<GaritasStackProps, "Post">,
@@ -92,13 +93,13 @@ const PortScreen = ({ route, navigation }: Props) => {
     });
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#ddd" }}>
       <PortHeader {...route} />
 
       <TouchableOpacity onPress={() => handleSocialPostAccess()}>
         <View style={styles.container}>
-          <Text style={styles.profile_image}>J</Text>
-          <Text style={styles.text}>Social post...</Text>
+          <Icon name="perm-identity" style={styles.profile_image} />
+          <Text style={styles.text}>Escribe tu publicación...</Text>
         </View>
       </TouchableOpacity>
       <View style={{ flex: 1 }}>
@@ -125,7 +126,8 @@ const PortScreen = ({ route, navigation }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
     backgroundColor: "#fff",
     borderBottomWidth: 1,
     borderBottomColor: "#dadede",
@@ -133,21 +135,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profile_image: {
-    backgroundColor: "#dadada",
+    backgroundColor: "#cdcdca",
     paddingVertical: 5,
-    paddingHorizontal: 11,
+    paddingHorizontal: 5,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 5,
+    marginRight: 10,
   },
   text: {
     borderWidth: 1,
     borderColor: "#dadede",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 50,
     flex: 1,
+    color: "#8a8a8a",
   },
 });
 

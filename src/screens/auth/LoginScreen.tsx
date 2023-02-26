@@ -1,24 +1,48 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { Icon } from "@rneui/themed";
+import { useLayoutEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, Image } from "react-native";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { AuthStackProps } from "../../app/types";
+import ErrorMessage from "../../components/atoms/ErrorMessage";
 import LoginButton from "../../components/molecules/LoginButton";
+import { setErrors } from "../../redux/authSlice";
 
 type Props = NativeStackScreenProps<AuthStackProps, "Login">;
+const logo = require("../../../assets/icon.png");
 
 const LoginScreen = ({ navigation, route }: Props) => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const error = useAppSelector((state) => state.auth.errors);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft(props) {
+        return (
+          <TouchableOpacity onPress={navigation.goBack}>
+            <Icon name="arrow-back" />
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, [navigation]);
 
   const goRegister = () => {
+    dispatch(setErrors(""));
     navigation.navigate("SignUp");
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image source={logo} style={styles.logo} />
+      </View>
       <View>
-        <Text style={styles.title}>Inicia Sesion</Text>
+        <Text style={styles.title}>INICIA SESIÓN</Text>
+        {error != "" ? <ErrorMessage message={error} /> : null}
         <View style={styles.input}>
           <TextInput value={email} onChangeText={setEmail} placeholder="Correo" />
         </View>
@@ -35,11 +59,11 @@ const LoginScreen = ({ navigation, route }: Props) => {
 
         <View>
           <Text style={{ textAlign: "center", marginTop: 15 }}>
-            No tienes una cuenta?
+            ¿No tienes una cuenta?
           </Text>
           <TouchableOpacity onPress={goRegister}>
             <Text style={{ textAlign: "center", color: "#006bf7", fontWeight: "800" }}>
-              Registrate
+              Regístrate 
             </Text>
           </TouchableOpacity>
         </View>
@@ -55,6 +79,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     justifyContent: "center",
+  },
+  logoContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 60,
+  },
+  logo: {
+    width: 90,
+    height: 90,
+    resizeMode: "contain",
   },
   title: {
     fontSize: 20,

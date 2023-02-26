@@ -18,66 +18,21 @@ interface Props {
 
 const SocialPost = (props: Props) => {
   const currentUser = auth().currentUser;
-  const increment = firestore.FieldValue.increment(1);
-  const decrement = firestore.FieldValue.increment(-1);
-  const [liked, setLiked] = useState(false);
-
-  function addLike() {
-    firestore()
-      .collection("likes")
-      .doc()
-      .set({
-        user_id: currentUser.uid,
-        doc_id: props.doc,
-      })
-      .then(() => {
-        firestore().collection("posts").doc(props.doc).update({ likes: increment });
-      });
-  }
-
-  function handleLike() {
-    firestore()
-      .collection("likes")
-      .where("user_id", "==", currentUser.uid)
-      .where("doc_id", "==", props.doc)
-      .get()
-      .then((documentSnapshot) => {
-        if (documentSnapshot.empty) {
-          addLike();
-        } else {
-          documentSnapshot.docs[0].ref.delete();
-          firestore().collection("posts").doc(props.doc).update({ likes: decrement });
-        }
-      });
-  }
-
-  useEffect(() => {
-    firestore()
-      .collection("likes")
-      .where("user_id", "==", currentUser.uid)
-      .where("doc_id", "==", props.doc)
-      .get()
-      .then((documentSnapshot) => {
-        if (!documentSnapshot.empty) {
-          setLiked(true);
-        } else {
-          setLiked(false);
-        }
-      });
-  });
 
   return (
     <View style={styles.container}>
       <UserPostInfo user={props.user} body={props.post} created_at={props.created_at} />
-      <PostInteractions
-        comments={props.comments}
-        created_at={props.created_at}
-        doc={props.doc}
-        likes={props.likes}
-        post={props.post}
-        user={props.user}
-        openCommentsListScreen={props.openCommentsListScreen}
-      />
+      {currentUser ? (
+        <PostInteractions
+          comments={props.comments}
+          created_at={props.created_at}
+          doc={props.doc}
+          likes={props.likes}
+          post={props.post}
+          user={props.user}
+          openCommentsListScreen={props.openCommentsListScreen}
+        />
+      ) : null}
     </View>
   );
 };
@@ -85,8 +40,8 @@ const SocialPost = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fdfdfd",
-    marginBottom: 8,
-    padding: 10,
+    marginTop: 8,
+    padding: 16,
   },
   likes_comments: {
     flexDirection: "row",

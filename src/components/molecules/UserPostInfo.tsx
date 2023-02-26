@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 import "moment/locale/es";
+import { Icon } from "@rneui/base";
 
 interface Props {
   user: string;
@@ -18,7 +19,7 @@ const UserPostInfo = ({ user, body, created_at }: Props) => {
       <View style={styles.header}>
         <View style={styles.posted_by}>
           <View style={styles.profile_image_container}>
-            <Text style={styles.profile_image}>J</Text>
+            <Icon style={styles.profile_image} name="perm-identity" />
           </View>
           <View>
             <Text style={styles.user_name}>{user}</Text>
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   profile_image: {
     backgroundColor: "#cdcdca",
     paddingVertical: 8,
-    paddingHorizontal: 14,
+    paddingHorizontal: 8,
     borderRadius: 50,
   },
   post_body: {

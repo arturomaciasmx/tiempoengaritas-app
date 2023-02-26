@@ -20,6 +20,21 @@ const PostInteractions = (props: Props) => {
   const decrement = firestore.FieldValue.increment(-1);
   const [liked, setLiked] = useState(false);
 
+  useEffect(() => {
+    firestore()
+      .collection("likes")
+      .where("user_id", "==", currentUser.uid)
+      .where("doc_id", "==", props.doc)
+      .get()
+      .then((documentSnapshot) => {
+        if (!documentSnapshot.empty) {
+          setLiked(true);
+        } else {
+          setLiked(false);
+        }
+      });
+  });
+
   function addLike() {
     firestore()
       .collection("likes")

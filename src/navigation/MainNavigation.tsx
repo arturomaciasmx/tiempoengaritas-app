@@ -6,7 +6,7 @@ import WelcomeStack from "./WelcomeStack";
 import AppStack from "./AppStack";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { setUser, user } from "../redux/authSlice";
+import { setUser } from "../redux/authSlice";
 import auth from "@react-native-firebase/auth";
 
 const MainNavigation = () => {

@@ -1,5 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import auth from "@react-native-firebase/auth";
+import { useAppDispatch } from "../../app/hooks";
+import { setErrors } from "../../redux/authSlice";
 
 interface Props {
   user: string;
@@ -8,24 +10,48 @@ interface Props {
 }
 
 const LoginButton = (props: Props) => {
+  const dispatch = useAppDispatch();
+
   function login() {
-    auth()
-      .signInWithEmailAndPassword(props.user, props.password)
-      .then(() => {
-        console.log("User logged in!");
-        props.navigation.navigate("GaritasStack");
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          console.log("That email address is already in use!");
-        }
+    if (props.user && props.password) {
+      auth()
+        .signInWithEmailAndPassword(props.user, props.password)
+        .then(() => {
+          console.log("User logged in!");
+          props.navigation.navigate("GaritasStack");
+        })
+        .catch((error) => {
+          if (error.code === "auth/invalid-email") {
+            console.log("That email address is invalid!");
+            dispatch(setErrors("El correo es inválido"));
+          }
 
-        if (error.code === "auth/invalid-email") {
-          console.log("That email address is invalid!");
-        }
+          if (error.code === "auth/user-not-found") {
+            console.log("There is no user record corresponding to this identifier.");
+            dispatch(setErrors("Usuario no registrado"));
+          }
 
-        console.error(error);
-      });
+          if (error.code === "auth/wrong-password") {
+            console.log("The password is invalid or the user does not have a password.");
+            dispatch(setErrors("Contraseña incorrecta"));
+          }
+
+          if (error.code === "auth/too-many-requests") {
+            console.log(
+              " Access to this account has been temporarily disabled due to many failed login attempts."
+            );
+            dispatch(
+              setErrors(
+                "El acceso a esta cuenta se ha deshabilitado temporalmente debido a muchos intentos de inicio de sesión fallidos."
+              )
+            );
+          }
+
+          console.error(error);
+        });
+    } else {
+      dispatch(setErrors("Todos los campos son requeridos"));
+    }
   }
 
   return (

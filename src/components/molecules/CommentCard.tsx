@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import moment from "moment";
+import { Icon } from "@rneui/base";
 
 interface Props {
   author: string;
@@ -15,7 +16,7 @@ const CommentCard = (props: Props) => {
   console.log(timeago);
   return (
     <View style={styles.container}>
-      <View style={styles.profileImage}></View>
+      <Icon style={styles.profile_image} name="perm-identity" />
       <View style={styles.commentBlock}>
         <Text style={styles.authorName}>{props.author}</Text>
         <Text style={styles.timeAgo}>{timeago}</Text>
@@ -31,16 +32,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 15,
   },
-  profileImage: {
-    width: 40,
-    height: 40,
+  profile_image: {
+    backgroundColor: "#cdcdca",
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     borderRadius: 50,
-    backgroundColor: "#aaa",
-    marginRight: 10,
   },
   commentBlock: {
     backgroundColor: "#dadada",
     padding: 15,
+    marginLeft: 15,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     flex: 1,

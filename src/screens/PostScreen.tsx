@@ -1,23 +1,24 @@
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { GaritasStackProps } from "../navigation/GaritasStack";
+import { GaritasStackProps } from "../app/types";
+import { Icon } from "@rneui/base";
 
 type Props = NativeStackScreenProps<GaritasStackProps, "Post">;
+
 const PostScreen = ({ route, navigation }: Props) => {
   const user = auth().currentUser;
-  const [post, setPost] = useState("");
+  const [body, setBody] = useState("test");
 
-  const sendPost = () => {
+  function sendPost() {
     firestore()
       .collection("posts")
-      .doc()
-      .set({
+      .add({
         user_id: user.uid,
         user_name: user.displayName,
-        body: post,
+        body: body,
         port: route.params.port,
         lane: route.params.lane,
         created_at: firestore.Timestamp.now(),
@@ -28,29 +29,39 @@ const PostScreen = ({ route, navigation }: Props) => {
       .catch((e) => {
         console.log(e);
       });
-  };
+  }
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight() {
+        return (
+          <TouchableOpacity onPress={() => sendPost()} style={styles.button}>
+            <Text style={styles.button_text}>PUBLICAR</Text>
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, [navigation, body]);
+  console.log(body);
 
   return (
     <View style={{ backgroundColor: "#ffffff", flex: 1 }}>
       <View style={styles.profile}>
-        <Text style={styles.profile_image}>J</Text>
+        <Icon name="perm-identity" style={styles.profile_image} />
         <Text style={{ fontSize: 18 }}>{user.displayName}</Text>
       </View>
 
       <View style={{ flex: 1 }}>
         <TextInput
           style={styles.input_text}
-          placeholder={"Escribe tu publicacion..."}
-          defaultValue={post}
-          numberOfLines={4}
-          multiline
-          blurOnSubmit
-          onChangeText={(text) => setPost(text)}
+          placeholder={"Escribe tu publicación..."}
+          // defaultValue={post}
+          // numberOfLines={4}
+          // multiline
+          // blurOnSubmit
+          onChangeText={(text) => setBody(text)}
         ></TextInput>
       </View>
-      <TouchableOpacity onPress={() => sendPost()} style={styles.button}>
-        <Text style={styles.button_text}>PUBLICAR</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -58,13 +69,14 @@ const styles = StyleSheet.create({
   profile: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingTop: 10,
+    marginBottom: 20,
   },
   profile_image: {
     backgroundColor: "#dadada",
     paddingVertical: 5,
-    paddingHorizontal: 11,
+    paddingHorizontal: 5,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -74,16 +86,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "transparent",
     textAlignVertical: "top",
-    padding: 10,
+    padding: 15,
     height: 500,
     fontSize: 20,
   },
   button: {
     backgroundColor: "#006bf7",
-    padding: 20,
-    borderRadius: 30,
-    marginHorizontal: 20,
-    marginVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 10,
   },
   button_text: {
     color: "#ffffff",

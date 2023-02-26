@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, TextInput, View, Image } from "react-native";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import ErrorMessage from "../../components/atoms/ErrorMessage";
 import RegisterButton from "../../components/molecules/RegisterButton";
+import { setErrors } from "../../redux/authSlice";
 
 const logo = require("../../../assets/icon.png");
 
 const RegisterScreen = ({ navigation }) => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -17,6 +19,7 @@ const RegisterScreen = ({ navigation }) => {
   }, [error]);
 
   const goLogin = () => {
+    dispatch(setErrors(""));
     navigation.navigate("Login");
   };
 
