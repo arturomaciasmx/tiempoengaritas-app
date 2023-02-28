@@ -11,6 +11,7 @@ interface Props {
   post: string;
   likes: number;
   comments: number;
+  isComentsList?: boolean;
   openCommentsListScreen?: () => void;
 }
 
@@ -100,7 +101,10 @@ const PostInteractions = (props: Props) => {
             {props.likes > 0 ? String(props.likes) : ""}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => props.openCommentsListScreen()}>
+        <TouchableOpacity
+          onPress={() => props.openCommentsListScreen()}
+          disabled={props.isComentsList}
+        >
           <Text style={styles.comments}>{props.comments} comments</Text>
         </TouchableOpacity>
       </View>
@@ -119,6 +123,7 @@ const PostInteractions = (props: Props) => {
           onPress={() => {
             props.openCommentsListScreen();
           }}
+          disabled={props.isComentsList}
         >
           <Icon name="comment" type="material" color="#666" />
         </TouchableOpacity>

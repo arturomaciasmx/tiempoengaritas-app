@@ -1,8 +1,8 @@
-import { Divider } from "@rneui/themed";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { useState } from "react";
+import { Icon } from "@rneui/base";
 
 interface Props {
   post_id: string;
@@ -36,26 +36,45 @@ const CommentInput = (props: Props) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={styles.inputText}
-        placeholder="Deja aqui tu comentario.."
+        placeholder="Escribe tu comentario..."
         onChangeText={(text) => setComment(text)}
       />
-      <Divider />
-      <TouchableOpacity style={styles.publishButton} onPress={() => addComment()}>
-        <Text style={styles.publishButtonText}>Publicar</Text>
+
+      <TouchableOpacity
+        style={comment.length > 0 ? styles.publishButton : styles.publishButtonDisabled}
+        onPress={() => addComment()}
+        disabled={comment.length > 0 ? false : true}
+      >
+        <Icon style={styles.publishButtonText} name="send" color={"#006bf7"} />
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+    backgroundColor: "#fff",
+  },
   inputText: {
     fontSize: 16,
     marginBottom: 3,
+    backgroundColor: "#f5f7f7",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 20,
   },
   publishButton: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 8,
+  },
+  publishButtonDisabled: {
+    opacity: 0.4,
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -66,9 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingTop: 3,
     paddingBottom: 5,
-    paddingHorizontal: 15,
     width: "auto",
-    backgroundColor: "#006bf7",
     color: "#fff",
     borderRadius: 30,
   },

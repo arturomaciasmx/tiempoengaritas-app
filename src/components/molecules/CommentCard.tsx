@@ -13,7 +13,7 @@ const CommentCard = (props: Props) => {
   if (props.created_at) {
     timeago = moment.utc(props.created_at).local().startOf("seconds").fromNow();
   }
-  console.log(timeago);
+
   return (
     <View style={styles.container}>
       <Icon style={styles.profile_image} name="perm-identity" />

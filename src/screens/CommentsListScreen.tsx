@@ -30,19 +30,33 @@ const CommentsListScreen = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
+    let subscribed = true;
     const fetchComments = async () => {
       const commentsSnapshot = await firestore().collection("comments");
       commentsSnapshot
         .where("post_id", "==", route.params.post_id)
-        .onSnapshot((querySnapshot) => {
-          let documents = [];
-          querySnapshot.forEach((documentSnapshot) => {
-            documents.push(documentSnapshot.data());
-          });
-          setComments(documents);
-        });
+        .orderBy("created_at", "desc")
+        .onSnapshot(
+          (querySnapshot) => {
+            let documents = [];
+            querySnapshot.forEach((documentSnapshot) => {
+              documents.push(documentSnapshot.data());
+            });
+            if (subscribed) {
+              setComments(documents);
+            }
+            console.log("documents:", documents);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     };
     fetchComments();
+
+    return () => {
+      subscribed = false;
+    };
   }, []);
 
   return (
@@ -62,6 +76,7 @@ const CommentsListScreen = ({ route, navigation }) => {
               post={post?.body}
               likes={post?.likes}
               comments={post?.comments}
+              isComentsList={true}
             />
           </>
         ) : null}

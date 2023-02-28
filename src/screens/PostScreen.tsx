@@ -10,7 +10,7 @@ type Props = NativeStackScreenProps<GaritasStackProps, "Post">;
 
 const PostScreen = ({ route, navigation }: Props) => {
   const user = auth().currentUser;
-  const [body, setBody] = useState("test");
+  const [body, setBody] = useState("");
 
   function sendPost() {
     firestore()
@@ -35,14 +35,18 @@ const PostScreen = ({ route, navigation }: Props) => {
     navigation.setOptions({
       headerRight() {
         return (
-          <TouchableOpacity onPress={() => sendPost()} style={styles.button}>
+          <TouchableOpacity
+            onPress={() => sendPost()}
+            style={body.length > 0 ? styles.button : styles.buttonDisabled}
+            disabled={body.length > 0 ? false : true}
+          >
             <Text style={styles.button_text}>PUBLICAR</Text>
           </TouchableOpacity>
         );
       },
     });
   }, [navigation, body]);
-  console.log(body);
+  console.log(body.length);
 
   return (
     <View style={{ backgroundColor: "#ffffff", flex: 1 }}>
@@ -55,10 +59,10 @@ const PostScreen = ({ route, navigation }: Props) => {
         <TextInput
           style={styles.input_text}
           placeholder={"Escribe tu publicación..."}
-          // defaultValue={post}
-          // numberOfLines={4}
-          // multiline
-          // blurOnSubmit
+          defaultValue={body}
+          numberOfLines={4}
+          multiline
+          blurOnSubmit
           onChangeText={(text) => setBody(text)}
         ></TextInput>
       </View>
@@ -91,6 +95,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   button: {
+    backgroundColor: "#006bf7",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 10,
+  },
+  buttonDisabled: {
+    opacity: 0.4,
     backgroundColor: "#006bf7",
     paddingHorizontal: 10,
     paddingVertical: 5,

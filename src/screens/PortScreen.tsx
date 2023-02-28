@@ -61,6 +61,7 @@ const PortScreen = ({ route, navigation }: Props) => {
         .where("lane.type", "==", route.params.lane.type)
         .where("lane.is_readylane", "==", route.params.lane.is_readylane)
         .orderBy("created_at", "desc")
+        .limit(10)
         .onSnapshot(
           (querySnapshot) => {
             let documents = [];
