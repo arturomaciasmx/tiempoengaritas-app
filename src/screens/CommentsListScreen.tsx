@@ -45,7 +45,6 @@ const CommentsListScreen = ({ route, navigation }) => {
             if (subscribed) {
               setComments(documents);
             }
-            console.log("documents:", documents);
           },
           (error) => {
             console.log(error);
@@ -88,6 +87,7 @@ const CommentsListScreen = ({ route, navigation }) => {
               author={comment.user_name}
               body={comment.body}
               created_at={comment.created_at?.toDate()}
+              key={comment.created_at.toMillis()}
             />
           );
         })}

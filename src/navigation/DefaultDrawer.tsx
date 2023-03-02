@@ -6,7 +6,6 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { NavigatorScreenParams } from "@react-navigation/native";
 import auth from "@react-native-firebase/auth";
 
 // screens
@@ -14,7 +13,7 @@ import CitiesScreen from "../screens/CitiesScreen";
 import AboutScreen from "../screens/AboutScreen";
 import AuthStack from "./AuthStack";
 import GaritasStack from "./GaritasStack";
-import { DefaultDrawerProps, GaritasStackProps } from "../app/types";
+import { DefaultDrawerProps } from "../app/types";
 import { View } from "react-native";
 import SelectCityButton from "../components/atoms/SelectCityButton";
 import { useAppSelector } from "../app/hooks";
@@ -75,12 +74,14 @@ const CustomDrawer = (props: CustomDrawerProps) => {
       <DrawerContentScrollView>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-      <DrawerItem
-        label={authButton}
-        onPress={() => {
-          props.navigation.navigate("AuthStackScreen");
-        }}
-      />
+      {!logged_user ? (
+        <DrawerItem
+          label={authButton}
+          onPress={() => {
+            props.navigation.navigate("AuthStackScreen");
+          }}
+        />
+      ) : null}
 
       {logged_user != null && (
         <DrawerItem

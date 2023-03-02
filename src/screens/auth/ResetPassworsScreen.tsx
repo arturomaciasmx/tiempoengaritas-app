@@ -7,21 +7,20 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { AuthStackProps } from "../../app/types";
 import ErrorMessage from "../../components/atoms/ErrorMessage";
 import LoginButton from "../../components/molecules/LoginButton";
+import ResetPasswordButton from "../../components/molecules/ResetPaswordButton";
 import { setErrors } from "../../redux/authSlice";
 
 type Props = NativeStackScreenProps<AuthStackProps, "Login">;
 const logo = require("../../../assets/icon.png");
 
-const LoginScreen = ({ navigation, route }: Props) => {
+const ResetPasswordScreen = ({ navigation, route }: Props) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const error = useAppSelector((state) => state.auth.errors);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       setEmail("");
-      setPassword("");
       dispatch(setErrors(""));
     });
     return unsubscribe;
@@ -39,18 +38,13 @@ const LoginScreen = ({ navigation, route }: Props) => {
     });
   }, [navigation]);
 
-  const goRegister = () => {
-    dispatch(setErrors(""));
-    navigation.navigate("SignUp");
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={logo} style={styles.logo} />
       </View>
       <View>
-        <Text style={styles.title}>INICIA SESIÓN</Text>
+        <Text style={styles.title}>RESTABLECER CONTRASEÑA</Text>
         {error != "" ? <ErrorMessage message={error} /> : null}
         <View style={styles.input}>
           <TextInput
@@ -59,35 +53,9 @@ const LoginScreen = ({ navigation, route }: Props) => {
             placeholder="Correo electrónico"
           />
         </View>
-        <View style={styles.input}>
-          <TextInput
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Contraseña"
-            secureTextEntry={true}
-          />
-        </View>
 
         {/* Button to handle all the login logic */}
-        <LoginButton user={email} password={password} navigation={navigation} />
-
-        <View>
-          <Text style={{ textAlign: "center", marginTop: 15 }}>
-            ¿No tienes una cuenta?
-          </Text>
-          <TouchableOpacity onPress={goRegister}>
-            <Text style={{ textAlign: "center", color: "#006bf7", fontWeight: "800" }}>
-              Regístrate 
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{ marginTop: 40 }}
-            onPress={() => navigation.navigate("ResetPassword")}
-          >
-            <Text style={styles.resetPassword}>Olvide mi contraseña</Text>
-          </TouchableOpacity>
-        </View>
+        <ResetPasswordButton email={email} navigation={navigation} />
       </View>
     </View>
   );
@@ -125,10 +93,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     borderRadius: 10,
   },
-  resetPassword: {
-    textAlign: "center",
-    fontSize: 13,
-  },
 });
 
-export default LoginScreen;
+export default ResetPasswordScreen;

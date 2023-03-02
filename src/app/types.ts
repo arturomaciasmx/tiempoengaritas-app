@@ -37,6 +37,7 @@ export type GaritasStackProps = {
 export type AuthStackProps = {
   Login: undefined;
   SignUp: undefined;
+  ResetPassword: undefined;
 };
 
 export type DefaultDrawerProps = {

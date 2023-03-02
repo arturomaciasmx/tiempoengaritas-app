@@ -1,23 +1,27 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Constants from "expo-constants"
+import Constants from "expo-constants";
 
-const AboutScreen = ({navigation}) => {
-  const version = Constants.manifest.version
-  return(
+const AboutScreen = ({ navigation }) => {
+  const version = Constants.manifest.version;
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Tiempo en Garitas</Text>
-      <Text style={styles.info}>Los tiempos mostrados son obtenidos directamente del sitio oficial de CBP, Por lo cual son tiempos aproximados y no somos responsables de actualizar la informacion.</Text>
+      <Text style={styles.info}>
+        Los tiempos mostrados en la aplicación son obtenidos del sitio oficial de CBP, los
+        tiempos son aproximados y no somos responsables de actualizar la información.
+      </Text>
       <Text style={styles.version}>Version {version}</Text>
+      <Text style={styles.version}>Desarrollado por Arma23</Text>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 30,
-    paddingTop: 50
+    paddingTop: 50,
   },
   title: {
     fontSize: 20,
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
   },
   version: {
     fontSize: 12,
-    textAlign: "center"
-  }
-})
-export default AboutScreen
+    textAlign: "center",
+  },
+});
+export default AboutScreen;

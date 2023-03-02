@@ -26,7 +26,11 @@ const GaritasStack = () => {
         <Stack.Screen name="Comment" component={CommentScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "modal", headerShadowVisible: false }}>
-        <Stack.Screen name="CommentsList" component={CommentsListScreen} />
+        <Stack.Screen
+          name="CommentsList"
+          component={CommentsListScreen}
+          options={{ headerTitle: "Comentarios" }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

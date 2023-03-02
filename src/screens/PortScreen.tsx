@@ -116,6 +116,7 @@ const PortScreen = ({ route, navigation }: Props) => {
                 likes={post.likes}
                 comments={post.comments}
                 openCommentsListScreen={() => openCommentsListScreen(postDoc.id)}
+                key={postDoc.id}
               />
             );
           })}

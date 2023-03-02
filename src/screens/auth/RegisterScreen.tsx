@@ -32,7 +32,11 @@ const RegisterScreen = ({ navigation }) => {
         <Text style={styles.title}>CREAR UNA CUENTA</Text>
         {error != "" ? <ErrorMessage message={error} /> : null}
         <View style={styles.input}>
-          <TextInput value={email} onChangeText={setEmail} placeholder="Correo" />
+          <TextInput
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Correo electrónico"
+          />
         </View>
         <View style={styles.input}>
           <TextInput
@@ -46,6 +50,7 @@ const RegisterScreen = ({ navigation }) => {
             value={password}
             onChangeText={setPassword}
             placeholder="Contraseña"
+            secureTextEntry={true}
           />
         </View>
         <RegisterButton email={email} password={password} displayName={displayName} />
