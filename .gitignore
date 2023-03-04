@@ -12,3 +12,7 @@ web-build/
 
 # macOS
 .DS_Store
+
+#firestore
+GoogleService-Info.plist	
+ios/TiempoenGaritas/GoogleService-Info.plist	
