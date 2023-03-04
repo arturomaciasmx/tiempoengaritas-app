@@ -2,7 +2,7 @@
   "expo": {
     "name": "Tiempo en Garitas",
     "slug": "tiempoengaritas-app",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -10,6 +10,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      "@react-native-firebase/app"
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -17,17 +20,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.arma23.tiempoengaritas"
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.arma23.tiempoengaritas"
+      "package": "com.arma23.tiempoengaritas",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "17e3435e-08ff-4296-baa4-bfc27834f4cc"
+      }
     }
   }
 }
