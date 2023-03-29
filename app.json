@@ -24,7 +24,7 @@
       "bundleIdentifier": "com.arma23.tiempoengaritas"
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
       },
