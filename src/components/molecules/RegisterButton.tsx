@@ -4,17 +4,25 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { authError, setErrors } from "../../redux/authSlice";
 import { useEffect } from "react";
 
-const RegisterButton = ({ email, password, displayName }) => {
+interface Props {
+  email: string;
+  password: string;
+  displayName: string;
+  navigation: any;
+}
+const RegisterButton = (props: Props) => {
   const dispatch = useAppDispatch();
 
-  const registerNewUser = (email, password) => {
-    if (email && password && displayName) {
+  const registerNewUser = () => {
+    if (props.email && props.password && props.displayName) {
       auth()
-        .createUserWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(props.email, props.password)
         .then((userCredential) => {
-          return userCredential.user.updateProfile({
-            displayName: displayName,
-          });
+          return userCredential.user
+            .updateProfile({
+              displayName: props.displayName,
+            })
+            .then(() => props.navigation.navigate("GaritasStack"));
         })
         .catch((error) => {
           if (error.code === "auth/email-already-in-use") {
@@ -37,10 +45,7 @@ const RegisterButton = ({ email, password, displayName }) => {
   };
 
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => registerNewUser(email, password)}
-    >
+    <TouchableOpacity style={styles.button} onPress={() => registerNewUser()}>
       <Text style={styles.buttonText}>REGISTRARSE</Text>
     </TouchableOpacity>
   );
