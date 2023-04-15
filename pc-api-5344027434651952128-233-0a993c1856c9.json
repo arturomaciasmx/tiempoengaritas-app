@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-5344027434651952128-233",
+  "private_key_id": "0a993c1856c9135da8db7dc4b550118d7f9a168e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDy0n0okaQcUN/1\nYXAgTLLgZy2ep+7KuPZ9m7habnRRMzE/XA31po+eYCLpNhpn7dH2Bls5nrSKSyfs\nMUcme2P9dqdZwfgnyDko/kYLf+VXUa10PiQ8HyV1m9rzHHL6Zm3+lhCgRlOQFrTv\npCoJXaUthl2X8i1oXfzHR+DqIRAtCnIT/HxpZ5CRGrxQNOGS4OQA+FwWo+uOKDIN\nJVt8jk8C3WNo6wVsmlL2bJ7mM5pK1pXHhkfqMgtg4T23JwUYcwIJVfmRFeQ/XMzw\nATOxyULOcdKEm1Te5AXPeBATaMmP38WFJMfwPu2OAvsx68KQBnf85L+FxNbZHq+G\nkdwKj+HBAgMBAAECggEAAk0GTJUctfv6M0wKEPRJGaFAqGk09QzNoSERnSHAzmgq\nxkvsAfDjGYAVtJoDpAp329nxkVk0or7VkQJihzXSG7u9GDejT1UxXXcTWNaMaMho\nWVqhY0R0SWoBqB4T5NWFo0zuuWYRMqNUcZTfpRkTEJxeVKtBzORfGdBPjEhl69dR\nxcFsckCOrp/QeX8qT/G0tmqkYQ40Txz5Qq+vOyIuSKVOXFA7hiHNZncmyKMBiOTd\nvYNhYOyJPAVT3VNlJcXs63TaBVkNptQWnHlyFCD1kQOcev5Y8L29vKUAI4bgUHgI\nUGekpVSXNdSc31qt1TMY1ARZEC9SIF7YwP+lTmm0AQKBgQD7ajvc2n7cZnFkIKV6\nBFgrdMosp4KoiOp1ge4smr19ekyjG14f/fWm/aRq9zVnj8z3hpAOpkQ3OfQx/5XC\n/+WFaQ681aYj7lUYPb8x/FfMf7B4Rku/hDb5+o2sS2eVGxFL6BnMHHVkVdKPoPY4\nA5MJJ6wy+GzzuI3/Hujx1O/uYQKBgQD3QCN6LZ6HKGVIzgIV43KZ/c/d74H8zx8T\nqpF/V/VV7vg4a8++8Zm78E9Qdx5INU6c3FNvJKJS5FLqd/nFh9OxpbtKqoEQwHEO\nvpn/aSnburA/MtbTJ0cGudDrmj11CRHCZjubX9nNejhgCYSCxCHMXS/b5P3kFDWI\ne0hTTlrvYQKBgQDDRo0+ijsUx0D1a2H79tngzvKlYmpaqxWotYWgAYSCrHZQDda6\n9I9T6BhHuMEzMf8altrXdg7v8kSYfRL+hbHpQGNhCnTj3Z8cmAEkOwKa5ObVVIxL\nMc9dtF1L4LmQl5iEo789yTDpALvuMTBs62HOL5FReaFuX/9yk7iM9T5yoQKBgDys\nHoiSvT4JaaFN/DEG2U50fBfH+CvjX4rh5kZLfUaTF5Iw0o/WlZUKyUvDj0jE2/+e\nCVNSuAqDQN2Mh1wzkn0bYDRYVseXkaa+mueUFNN4ols/zHuQPdumqV/HP6GCkjsT\n/ziHctj7Tu4yJ7Q3ENwnWeEp9iuL0f8l0X+v0JzBAoGAJAPoNUoztMxACt57JNai\nKQ4Cq1jjkaan5j+GNlRWeskmp6I/AGJM8Ll6w7BXYnfUMi/dVd8sxwuAOqvaOnL7\nYtgpDJYL/4g2vDxhd3Ggt5s5Poda87BcF901OFVLfBQagbs1EFeG2tpmdIcuFr1K\nC0RBxx27rhlxbpsrKACd6s0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "tiempo-en-garitas@pc-api-5344027434651952128-233.iam.gserviceaccount.com",
+  "client_id": "101830363031539107670",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tiempo-en-garitas%40pc-api-5344027434651952128-233.iam.gserviceaccount.com"
+}

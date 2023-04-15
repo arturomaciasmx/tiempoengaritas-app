@@ -11,7 +11,8 @@
       "backgroundColor": "#ffffff"
     },
     "plugins": [
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      "expo-image-picker"
     ],
     "updates": {
       "fallbackToCacheTimeout": 0
