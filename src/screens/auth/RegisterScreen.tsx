@@ -53,7 +53,12 @@ const RegisterScreen = ({ navigation }) => {
             secureTextEntry={true}
           />
         </View>
-        <RegisterButton email={email} password={password} displayName={displayName} />
+        <RegisterButton
+          email={email}
+          password={password}
+          displayName={displayName}
+          navigation={navigation}
+        />
 
         <View>
           <Text style={{ textAlign: "center", marginTop: 15 }}>

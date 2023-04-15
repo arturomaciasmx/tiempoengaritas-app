@@ -157,3 +157,5 @@ docs/pages/versions/*/react-native/*.diff
 
 GoogleService-Info.plist
 pc-api-5344027434651952128-233-0a993c1856c9.json
+google-services.json
+
